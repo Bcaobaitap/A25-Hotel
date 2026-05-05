@@ -2,6 +2,7 @@ package com.hotel.controller.receptionist;
 
 import java.io.IOException;
 
+import com.hotel.dao.DonDatPhongDAO;
 import com.hotel.dao.PhongDAO;
 
 import jakarta.servlet.ServletException;
@@ -17,13 +18,20 @@ public class ReceptionistDashboardController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PhongDAO phongdao = new PhongDAO();
+		PhongDAO phongDao = new PhongDAO();
+		DonDatPhongDAO donDatPhongDao=new DonDatPhongDAO();
 		// hiển thị tổng doanh thu trong ngày 
-		double total = phongdao.GetRevenue();
+		double total = phongDao.GetRevenue();
 		//hiển thị tổng số lượng khách đang lưu trú 
-		double totalGuests=phongdao.GetTotalGuests();
+		double totalGuests=phongDao.GetTotalGuests();
+		//hiển thị tổng số lượng đơn cần duyệt 
+		int totalApplication = donDatPhongDao.getConfirmApplication();
+		//hiển thị tổng số phòng còn trống 
+		int totalEmptyRoom=phongDao.getEmptyRoom();
 		request.setAttribute("currentOccupancyRevenue", total);
 		request.setAttribute("currentTotalGuests", totalGuests);
+		request.setAttribute("currentConfirmApplication", totalApplication);
+		request.setAttribute("currentEmptyRoom", totalEmptyRoom);
 		request.getRequestDispatcher("/WEB-INF/views/receptionist/dashboard.jsp").forward(request, response);
 	}
 }

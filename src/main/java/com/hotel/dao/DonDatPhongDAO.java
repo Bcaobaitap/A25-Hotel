@@ -156,4 +156,19 @@ public class DonDatPhongDAO {
         }
         return false;
     }
+    // hiển thị số đơn đặt cần duyệt 
+    public Integer getConfirmApplication() {
+    	int total= 0;
+		String sql = "SELECT count(TrangThaiDon) FROM dondatphong b WHERE b.TrangThaiDon = 'CHỜ XÁC NHẬN'";
+		try(Connection conn = DBContext.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()){
+			if(rs.next()) {
+				total=rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		};
+		return total;
+    }
 }

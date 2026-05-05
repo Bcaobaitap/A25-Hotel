@@ -86,8 +86,8 @@
 						<hr class="dark horizontal my-0">
 						<div class="card-footer p-3">
 							<p class="mb-0">
-								<span class="text-success text-sm font-weight-bolder">+3
-								</span>khách check-in mới
+								<span class="text-success text-sm font-weight-bolder">
+								</span>khách check-in
 							</p>
 						</div>
 					</div>
@@ -102,7 +102,9 @@
 							</div>
 							<div class="text-end pt-1">
 								<p class="text-sm mb-0 text-capitalize">Đơn chờ xác nhận</p>
-								<h4 class="mb-0">5</h4>
+								<h4 class="mb-0">
+									<fmt:formatNumber value="${currentConfirmApplication}" type="number" />
+								</h4>
 							</div>
 						</div>
 						<hr class="dark horizontal my-0">
@@ -124,7 +126,9 @@
 							</div>
 							<div class="text-end pt-1">
 								<p class="text-sm mb-0 text-capitalize">Phòng trống</p>
-								<h4 class="mb-0">12</h4>
+								<h4 class="mb-0">
+									<fmt:formatNumber value="${currentEmptyRoom}" type="number" />
+								</h4>
 							</div>
 						</div>
 						<hr class="dark horizontal my-0">

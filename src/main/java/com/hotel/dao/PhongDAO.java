@@ -179,4 +179,19 @@ public class PhongDAO {
 		};
 		return total;
 	}
+	// hiện thị số lượng phòng còn trống 
+	public Integer getEmptyRoom() {
+		int total= 0;
+		String sql = "SELECT COUNT(TrangThaiPhong) FROM phong b WHERE b.TrangThaiPhong = 'TRỐNG'";
+		try(Connection conn = DBContext.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()){
+			if(rs.next()) {
+				total=rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		};
+		return total;
+	}
 }
