@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBContext {
-	private static final String URL = "jdbc:mysql://localhost:3306/QLKS_11?useUnicode=true&characterEncoding=UTF-8";
+	private static final String URL = "jdbc:mysql://localhost:3306/QLKS_11";
 	private static final String USER = "root";
-	private static final String PASS = "thanhcv000";
+	private static final String PASS = "123456";
 	
 	//chạy 1 lần khi ứng dụng Web khởi động
 	static {

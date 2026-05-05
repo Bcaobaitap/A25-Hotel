@@ -1,18 +1,19 @@
 package com.hotel.controller.receptionist;
 
 import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import com.hotel.model.DonDatPhong;
 import com.hotel.model.NhanVien;
 import com.hotel.model.Phong;
 import com.hotel.service.DonDatService;
 import com.hotel.service.PhongService;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/receptionist/book-room")
 public class ReceptionistBookingController extends HttpServlet {
