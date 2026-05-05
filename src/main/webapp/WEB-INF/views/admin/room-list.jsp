@@ -227,6 +227,19 @@
 																			<textarea name="moTa" class="form-control" rows="3"
 																				required>${phong.moTa}</textarea>
 																		</div>
+																		
+																		<!-- thêm sửa trạng thái phòng -->
+																		<div class="input-group input-group-static mb-3">
+																					<label>Trạng thái phòng</label> <select name="trangThaiPhong"
+																						class="form-control" required>
+																						<option value="TRỐNG"
+																							${phong.trangThaiPhong == 'TRỐNG' ? 'selected' : ''}>TRỐNG</option>
+																						<option value="CÓ KHÁCH"
+																							${phong.trangThaiPhong == 'CÓ KHÁCH' ? 'selected' : ''}>CÓ KHÁCH</option>
+																						<option value="BẢO TRÌ"
+																							${phong.trangThaiPhong == 'BẢO TRÌ' ? 'selected' : ''}>Bảo trì</option>
+																					</select>
+																				</div>
 																	</div>
 																	<div class="modal-footer">
 																		<button type="button"
