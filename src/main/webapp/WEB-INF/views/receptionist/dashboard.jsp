@@ -86,8 +86,8 @@
 						<hr class="dark horizontal my-0">
 						<div class="card-footer p-3">
 							<p class="mb-0">
-								<span class="text-success text-sm font-weight-bolder">
-								</span>khách check-in
+								<span class="text-success text-sm font-weight-bolder"> </span>khách
+								check-in
 							</p>
 						</div>
 					</div>
@@ -103,7 +103,8 @@
 							<div class="text-end pt-1">
 								<p class="text-sm mb-0 text-capitalize">Đơn chờ xác nhận</p>
 								<h4 class="mb-0">
-									<fmt:formatNumber value="${currentConfirmApplication}" type="number" />
+									<fmt:formatNumber value="${currentConfirmApplication}"
+										type="number" />
 								</h4>
 							</div>
 						</div>
@@ -172,51 +173,34 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="d-flex px-2 py-1">
-												<div>
-													<img
-														src="${pageContext.request.contextPath}/assets/images/dashboard_img/team-2.jpg"
-														class="avatar avatar-sm me-3" alt="user">
+								<!-- hiển thị danh sách đơn lên --> 
+									<c:forEach var="don" items="${recentBookings}">
+										<tr>
+											<td>
+												<div class="d-flex px-2 py-1 ">
+													<%-- <div>
+														<img
+															src="${pageContext.request.contextPath}/assets/images/dashboard_img/team-2.jpg"
+															class="avatar avatar-sm me-3" alt="user">
+													</div> --%>
+													<div class="d-flex flex-column justify-content-center">
+														<h6 class="mb-0 text-sm">${don.tenNguoiDat}</h6>
+													</div>
 												</div>
-												<div class="d-flex flex-column justify-content-center">
-													<h6 class="mb-0 text-sm">Nguyễn Văn A</h6>
-												</div>
-											</div>
-										</td>
-										<td>
-											<p class="text-xs font-weight-bold mb-0">Phòng 101 (Đơn)</p>
-										</td>
-										<td class="align-middle text-center text-sm"><span
-											class="text-xs font-weight-bold"> 1,500,000 đ </span></td>
-										<td class="align-middle text-center"><span
-											class="badge badge-sm bg-gradient-warning">Chờ xác
-												nhận</span></td>
-									</tr>
-
-									<tr>
-										<td>
-											<div class="d-flex px-2 py-1">
-												<div>
-													<img
-														src="${pageContext.request.contextPath}/assets/images/dashboard_img/team-4.jpg"
-														class="avatar avatar-sm me-3" alt="user">
-												</div>
-												<div class="d-flex flex-column justify-content-center">
-													<h6 class="mb-0 text-sm">Trần Thị B</h6>
-												</div>
-											</div>
-										</td>
-										<td>
-											<p class="text-xs font-weight-bold mb-0">Phòng 205 (VIP)</p>
-										</td>
-										<td class="align-middle text-center text-sm"><span
-											class="text-xs font-weight-bold"> 4,200,000 đ </span></td>
-										<td class="align-middle text-center"><span
-											class="badge badge-sm bg-gradient-success">Đã xác nhận</span>
-										</td>
-									</tr>
+											</td>
+											<td>
+												<p class="text-xs font-weight-bold mb-0">Phòng
+													${don.maPhong}</p>
+											</td>
+											<td class="align-middle text-center text-sm"><span
+												class="text-xs font-weight-bold"> <fmt:formatNumber
+														value="${don.tongTien}" type="number" /> đ
+											</span></td>
+											<td class="align-middle text-center"><span
+												class="badge badge-sm ${don.trangThaiDon == 'CHỜ XÁC NHẬN' ? 'bg-gradient-warning' : 'bg-gradient-success'}">
+													${don.trangThaiDon} </span></td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div>

@@ -125,10 +125,10 @@ public class PhongDAO {
 	// Lấy sơ đồ phòng động theo một ngày cụ thể
 	public List<Phong> getRoomStatusByDate(java.sql.Date targetDate) {
 		List<Phong> list = new ArrayList<>();
-
+        // thêm ĐANG LƯU TRÚ để hiển thị đúng màu room-status receptionist
 		String sql = "SELECT *, " + "CASE " + "  WHEN TrangThaiPhong = 'BẢO TRÌ' THEN 'BẢO TRÌ' " + "  WHEN EXISTS ("
 				+ "      SELECT 1 FROM DONDATPHONG d " + "      WHERE d.MaPhong = PHONG.MaPhong "
-				+ "        AND d.TrangThaiDon IN ('CHỜ XÁC NHẬN', 'ĐÃ XÁC NHẬN') "
+				+ "        AND d.TrangThaiDon IN ('CHỜ XÁC NHẬN', 'ĐÃ XÁC NHẬN', 'ĐANG LƯU TRÚ') "
 				+ "        AND ? >= d.NgayNhan AND ? < d.NgayTra " + "  ) THEN 'CÓ KHÁCH' " + "  ELSE 'TRỐNG' "
 				+ "END AS TrangThaiDong " + "FROM PHONG";
 
