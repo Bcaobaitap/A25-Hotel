@@ -62,6 +62,7 @@ public class ManageRoomController extends HttpServlet {
                 p.setDienTich(Double.parseDouble(request.getParameter("dienTich")));
                 p.setMoTa(request.getParameter("moTa"));
                 p.setAnhPhong(request.getParameter("anhPhong")); 
+                p.setTrangThaiPhong(request.getParameter("trangThaiPhong")); //Thêm sửa trạng thái
                 
                 boolean success = phongService.updateRoom(p);
                 response.sendRedirect(request.getContextPath() + "/admin/rooms?msg=" + (success ? "update_success" : "error"));

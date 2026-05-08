@@ -1,12 +1,12 @@
 package com.hotel.dao;
 
-import com.hotel.model.DonDatPhong;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Date;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.ResultSet;
+
+import com.hotel.model.DonDatPhong;
 
 public class DonDatPhongDAO {
     public boolean insert(DonDatPhong don) {
@@ -155,5 +155,51 @@ public class DonDatPhongDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    // hiển thị số đơn đặt cần duyệt 
+    public Integer getConfirmApplication() {
+    	int total= 0;
+		String sql = "SELECT count(TrangThaiDon) FROM dondatphong b WHERE b.TrangThaiDon = 'CHỜ XÁC NHẬN'";
+		try(Connection conn = DBContext.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()){
+			if(rs.next()) {
+				total=rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		};
+		return total;
+    }
+    // hiển thị danh sách 5 đơn mới nhất lên dashboard lễ tân 
+    public List<DonDatPhong> getRecentBookings() {
+        List<DonDatPhong> list = new ArrayList<>();
+        String sql = "SELECT * FROM DONDATPHONG ORDER BY NgayTaoDon DESC LIMIT 5";
+        
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            
+            while (rs.next()) {
+                DonDatPhong don = new DonDatPhong(
+                    rs.getInt("MaDon"),
+                    (Integer) rs.getObject("MaKH"), 
+                    (Integer) rs.getObject("MaNV"),
+                    rs.getInt("MaPhong"),
+                    rs.getTimestamp("NgayTaoDon"),
+                    rs.getString("TrangThaiDon"),
+                    rs.getDouble("TongTien"),
+                    rs.getString("TenNguoiDat"),
+                    rs.getDate("NgayNhan"),
+                    rs.getDate("NgayTra"),
+                    rs.getInt("SoNguoi"),
+                    rs.getString("ThongTinLienHe")
+                );
+                list.add(don);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
