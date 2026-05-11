@@ -68,7 +68,7 @@
               </div>
               
               <div style="margin-top: 20px; text-align: center;">
-                <span style="color: white;">Đã có tài khoản? </span>
+                <span style="color: black;">Đã có tài khoản? </span>
                 <a href="${pageContext.request.contextPath}/login" style="color: #ffbe33; font-weight: bold;">Đăng nhập</a>
               </div>
             </form>

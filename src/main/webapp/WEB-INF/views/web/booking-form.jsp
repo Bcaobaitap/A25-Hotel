@@ -62,13 +62,13 @@
         </div>
         
         <div class="col-md-6">
-          <div class="detail-box" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; color: white;">
-            <h4>Thông tin phòng</h4>
-            <hr style="border-color: rgba(255,255,255,0.3);">
+          <div class="detail-box" style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 10px;">
+            <h4 style="color: #0066cc;">Thông tin phòng</h4>
+            <hr style="border-color: #ddd;">
             <img src="${pageContext.request.contextPath}/assets/images/homepage_img/${room.anhPhong}" style="width: 100%; border-radius: 5px; margin-bottom: 15px;">
-            <p><strong>Phòng:</strong> ${room.tenPhong}</p>
-            <p><strong>Loại:</strong> ${room.loaiPhong}</p>
-            <p><strong>Giá niêm yết:</strong> <span style="color: #ffbe33;">${room.gia} VNĐ/đêm</span></p>
+            <p style="color: black;"><strong>Phòng:</strong> ${room.tenPhong}</p>
+            <p style="color: black;"><strong>Loại:</strong> ${room.loaiPhong}</p>
+            <p style="color: black;"><strong>Giá niêm yết:</strong> <span style="color: #ffbe33;">${room.gia} VNĐ/đêm</span></p>
           </div>
         </div>
       </div>
