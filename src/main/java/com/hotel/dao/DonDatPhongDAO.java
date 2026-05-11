@@ -195,6 +195,7 @@ public class DonDatPhongDAO {
                     rs.getInt("SoNguoi"),
                     rs.getString("ThongTinLienHe")
                 );
+                
                 list.add(don);
             }
         } catch (Exception e) {
