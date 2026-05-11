@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import com.hotel.model.Phong;
 import com.hotel.service.PhongService;
 
-@WebServlet("/home")
+@WebServlet(urlPatterns = {"/home",""})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PhongService phongService = new PhongService();
