@@ -58,12 +58,13 @@
               
               <div class="btn_box">
                 <button type="submit">Đăng Nhập</button>
+                <a href="${pageContext.request.contextPath}/register" class="btn_register">Đăng ký</a>
               </div>
               
-              <div style="margin-top: 20px; text-align: center;">
-                <span style="color: white;">Chưa có tài khoản? </span>
+            <<!--   <div style="margin-top: 20px; text-align: center;">
+                <span style="color: black;">Chưa có tài khoản? </span>
                 <a href="${pageContext.request.contextPath}/register" style="color: #ffbe33; font-weight: bold;">Đăng ký ngay</a>
-              </div>
+              </div>  -->
             </form>
           </div>
         </div>
