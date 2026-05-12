@@ -10,13 +10,16 @@ import jakarta.servlet.http.HttpSession;
 
 import com.hotel.model.TaiKhoan;
 import com.hotel.model.DonDatPhong;
+import com.hotel.model.KhachHang;
 import com.hotel.model.Phong;
 import com.hotel.service.DonDatService;
+import com.hotel.service.KhachHangService;
 import com.hotel.service.PhongService;
 
 @WebServlet("/booking")
 public class BookingController extends HttpServlet {
     private PhongService phongService = new PhongService();
+    private KhachHangService khachHangService = new KhachHangService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -53,9 +56,11 @@ public class BookingController extends HttpServlet {
 
             HttpSession session = request.getSession();
             TaiKhoan user = (TaiKhoan) session.getAttribute("userSession");
-
+            
+            KhachHang profileUser = khachHangService.getProfileByMaTK(user.getMaTK());
+            
             DonDatPhong don = new DonDatPhong();
-            don.setMaKH(user.getMaTK());
+            don.setMaKH(profileUser.getMaKH());
             don.setMaPhong(maPhong);
             don.setTenNguoiDat(tenNguoiDat);
             don.setThongTinLienHe(thongTinLienHe);

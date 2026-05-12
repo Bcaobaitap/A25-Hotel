@@ -68,4 +68,23 @@ public class DonDatPhong {
 
     public String getThongTinLienHe() { return thongTinLienHe; }
     public void setThongTinLienHe(String thongTinLienHe) { this.thongTinLienHe = thongTinLienHe; }
+    
+    @Override
+    public String toString() {
+        return "DonDatPhong{" +
+                "maDon=" + maDon +
+                ", maKH=" + maKH +
+                ", maNV=" + maNV +
+                ", maPhong=" + maPhong +
+                ", ngayTaoDon=" + ngayTaoDon +
+                ", trangThaiDon='" + trangThaiDon + '\'' +
+                ", tongTien=" + tongTien +
+                ", tenNguoiDat='" + tenNguoiDat + '\'' +
+                ", ngayNhan=" + ngayNhan +
+                ", ngayTra=" + ngayTra +
+                ", soNguoi=" + soNguoi +
+                ", thongTinLienHe='" + thongTinLienHe + '\'' +
+                '}';
+    }
+    
 }

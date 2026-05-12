@@ -52,6 +52,7 @@ public class LoginController extends HttpServlet {
                 session.setAttribute("userProfile", profile);
             } else {
                 KhachHang profile = khachHangService.getProfileByMaTK(user.getMaTK());
+                System.out.print(profile.toString());
                 session.setAttribute("userProfile", profile);
             }
 

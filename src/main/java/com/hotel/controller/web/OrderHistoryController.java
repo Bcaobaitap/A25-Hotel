@@ -11,12 +11,15 @@ import jakarta.servlet.http.HttpSession;
 
 import com.hotel.model.TaiKhoan;
 import com.hotel.model.DonDatPhong;
+import com.hotel.model.KhachHang;
 import com.hotel.service.DonDatService;
+import com.hotel.service.KhachHangService;
 
 @WebServlet("/my-orders")
 public class OrderHistoryController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private DonDatService donDatService = new DonDatService();
+    private KhachHangService khachHangService = new KhachHangService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
@@ -24,10 +27,13 @@ public class OrderHistoryController extends HttpServlet {
         
         HttpSession session = request.getSession();
         TaiKhoan user = (TaiKhoan) session.getAttribute("userSession");
+        
+        KhachHang profileUser = khachHangService.getProfileByMaTK(user.getMaTK());
 
         if (user != null) {
-            List<DonDatPhong> listDon = donDatService.getHistoryByCustomer(user.getMaTK());
+            List<DonDatPhong> listDon = donDatService.getHistoryByCustomer(profileUser.getMaKH());
   
+            System.out.print(listDon.size());
             request.setAttribute("listDon", listDon);
             String status = request.getParameter("status");
             if ("success".equals(status)) {

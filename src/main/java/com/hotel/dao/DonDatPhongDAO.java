@@ -14,7 +14,7 @@ public class DonDatPhongDAO {
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBContext.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+            System.out.print(don.toString());
             if (don.getMaKH() != null) ps.setInt(1, don.getMaKH()); 
             else ps.setNull(1, java.sql.Types.INTEGER);
             

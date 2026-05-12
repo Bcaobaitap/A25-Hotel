@@ -31,4 +31,15 @@ public class KhachHang {
 
     public String getSdt() { return sdt; }
     public void setSdt(String sdt) { this.sdt = sdt; }
+    
+    @Override
+    public String toString() {
+        return "KhachHang{" +
+                "maKH=" + maKH +
+                ", maTK=" + maTK +
+                ", hoTen='" + hoTen + '\'' +
+                ", email='" + email + '\'' +
+                ", sdt='" + sdt + '\'' +
+                '}';
+    }
 }
