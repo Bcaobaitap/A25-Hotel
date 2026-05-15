@@ -33,8 +33,9 @@
 									class="sr-only">(current)</span></a></li>
 							<li class="nav-item"><a class="nav-link"
 								href="${pageContext.request.contextPath}/home#room-section">Phòng</a></li>
-							<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/home#contact-section">Liên hệ</a>
-							</li>
+							<li class="nav-item"><a class="nav-link"
+								href="${pageContext.request.contextPath}/home#contact-section">Liên
+									hệ</a></li>
 						</ul>
 						<div class="user_option"
 							style="display: flex; align-items: center;">
@@ -104,14 +105,14 @@
 										<p>Chào mừng đến với 25Hotel — nơi mỗi kỳ nghỉ trở thành
 											ký ức không thể quên. Đặt phòng ngay để hưởng ưu đãi đặc biệt
 											và dịch vụ chăm sóc tận tâm 24/7.</p>
-											
+
 										<div class="btn-box">
 											<!-- Điều hướng nút đặt phòng sang đăng nhập -->
 											<!-- nếu đã đăng nhập, chuyển sang trang phòng -->
 											<a href="javascript:void(0);" onclick="checkLoginAndBook();"
 												class="btn1"> Đặt phòng ngay </a>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
@@ -170,35 +171,41 @@
 		</section>
 		<!-- end slider section -->
 	</div>
-	
- <!-- offer section -->
- <section class="offer_section layout_padding-bottom">
-   <div class="offer_container">
-     <div class="container ">
-       <div class="row">
-         <div class="col-md-6  ">
-           <div class="box ">
-             <div class="img-box">
-               <img src="${pageContext.request.contextPath}/assets/images/homepage_img/of1.jpg" alt="">
-             </div>
-             <div class="detail-box">
-               <h5>
-               Ưu đãi Cuối Tuần
-               </h5>
-               <h6>
-                 <span>20%</span> Off
-               </h6>
-               <a href="">
-                 Đặt ngay <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+
+	<!-- offer section -->
+	<section class="offer_section layout_padding-bottom">
+		<div class="offer_container">
+			<div class="container ">
+				<div class="row">
+					<div class="col-md-6  ">
+						<div class="box ">
+							<div class="img-box">
+								<img
+									src="${pageContext.request.contextPath}/assets/images/homepage_img/of1.jpg"
+									alt="">
+							</div>
+							<div class="detail-box">
+								<h5>Ưu đãi Cuối Tuần</h5>
+								<h6>
+									<span>20%</span> Off
+								</h6>
+								<a href=""> Đặt ngay <svg version="1.1" id="Capa_1"
+										xmlns="http://www.w3.org/2000/svg"
+										xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+										viewBox="0 0 456.029 456.029"
+										style="enable-background: new 0 0 456.029 456.029;"
+										xml:space="preserve">
                    <g>
                      <g>
-                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                       <path
+											d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
                      </g>
                    </g>
                    <g>
                      <g>
-                       <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                       <path
+											d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
@@ -206,7 +213,8 @@
                    </g>
                    <g>
                      <g>
-                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                       <path
+											d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                      </g>
                    </g>
@@ -241,33 +249,39 @@
                    <g>
                    </g>
                  </svg>
-               </a>
-             </div>
-           </div>
-         </div>
-         <div class="col-md-6  ">
-           <div class="box ">
-             <div class="img-box">
-               <img src="${pageContext.request.contextPath}/assets/images/homepage_img/of2.jpg" alt="">
-             </div>
-             <div class="detail-box">
-               <h5>
-                 Suite Tháng Hè
-               </h5>
-               <h6>
-                 <span>15%</span> Off
-               </h6>
-               <a href="">
-                 Đặt ngay<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6  ">
+						<div class="box ">
+							<div class="img-box">
+								<img
+									src="${pageContext.request.contextPath}/assets/images/homepage_img/of2.jpg"
+									alt="">
+							</div>
+							<div class="detail-box">
+								<h5>Suite Tháng Hè</h5>
+								<h6>
+									<span>15%</span> Off
+								</h6>
+								<a href=""> Đặt ngay<svg version="1.1" id="Capa_1"
+										xmlns="http://www.w3.org/2000/svg"
+										xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+										viewBox="0 0 456.029 456.029"
+										style="enable-background: new 0 0 456.029 456.029;"
+										xml:space="preserve">
                    <g>
                      <g>
-                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                       <path
+											d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
                     c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
                      </g>
                    </g>
                    <g>
                      <g>
-                       <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                       <path
+											d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
                     C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
                     c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
                     C457.728,97.71,450.56,86.958,439.296,84.91z" />
@@ -275,7 +289,8 @@
                    </g>
                    <g>
                      <g>
-                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                       <path
+											d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
                     c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
                      </g>
                    </g>
@@ -310,39 +325,45 @@
                    <g>
                    </g>
                  </svg>
-               </a>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </section>
- <!-- end offer section -->
-	
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end offer section -->
+
 	<!-- room section -->
 	<section id="room-section" class="food_section layout_padding-bottom">
 		<div class="container">
 			<div class="heading_container heading_center">
 				<h2>Our Room</h2>
 			</div>
+			<!-- sửa lại data-filter -->
 			<ul class="filters_menu">
 				<li class="active" data-filter="*">All</li>
-				<li data-filter=".Phòng đơn">Phòng đơn</li>
-				<li data-filter=".Phòng đôi">Phòng đôi</li>
-				<li data-filter=".Phòng cận cao cấp">Phòng cận cao cấp</li>
-				<li data-filter=".Phòng cao cấp">Phòng cao cấp</li>
+				<li data-filter=".phong-don">Phòng đơn</li>
+				<li data-filter=".phong-doi">Phòng đôi</li>
+				<li data-filter=".phong-can-cao-cap">Phòng cận cao cấp</li>
+				<li data-filter=".phong-cao-cap">Phòng cao cấp</li>
 			</ul>
 			<div class="filters-content">
 				<div class="row grid">
-					<c:forEach items="${danhSachPhong}" var="phong" end="3">
-						<div class="col-sm-6 col-lg-4 all">
+				<!-- sửa lại vòng lại để tìm kiếm theo loại phòng -->
+					<c:forEach items="${danhSachPhong}" var="phong">
+						<%-- Bước này giúp chuyển "Phòng đơn" -> "phong-don" để khớp với filter --%>
+						<c:set var="loaiPhongClass"
+							value="${phong.loaiPhong.toLowerCase().replace(' ', '-').replace('đ', 'd').replaceAll('[àáạảãâầấậẩẫăằắặẳẵ]', 'a').replaceAll('[èéẹẻẽêềếệểễ]', 'e').replaceAll('[ìíịỉĩ]', 'i').replaceAll('[òóọỏõôồốộổỗơờớợởỡ]', 'o').replaceAll('[ùúụủũưừứựửữ]', 'u').replaceAll('[ỳýỵỷỹ]', 'y')}" />
+
+						<div class="col-sm-6 col-lg-4 all ${loaiPhongClass}">
 							<div class="box">
 								<div>
 									<div class="img-box">
 										<img
 											src="${pageContext.request.contextPath}/assets/images/homepage_img/${phong.anhPhong}"
-											alt="${phong.tenPhong}">
+											alt="">
 									</div>
 									<div class="detail-box">
 										<h5>${phong.tenPhong}</h5>
@@ -353,9 +374,12 @@
 										<div class="options">
 											<h6>${phong.gia}VNĐ</h6>
 											<a
-												href="${pageContext.request.contextPath}/room-detail?id=${phong.maPhong}"
-												title="Xem chi tiết & Đặt phòng"> <i class="fa fa-bed"
-												aria-hidden="true" style="color: white; font-size: 18px;"></i>
+												href="${pageContext.request.contextPath}/room-detail?id=${phong.maPhong}">
+												<div class="icon-container"
+													style="background-color: #ffbe33; padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">
+													<i class="fa fa-bed" aria-hidden="true"
+														style="color: white; font-size: 18px;"></i>
+												</div>
 											</a>
 										</div>
 									</div>
@@ -366,13 +390,14 @@
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="${pageContext.request.contextPath}/rooms"> Hiển thị thêm </a>
+				<a href="${pageContext.request.contextPath}/rooms"> Hiển thị
+					thêm </a>
 			</div>
 		</div>
 	</section>
 	<!-- end food section -->
 
-	<!--  xoá abt sction -->	
+	<!--  xoá abt sction -->
 	<!-- book section -->
 	<section class="book_section layout_padding">
 		<div class="container">
@@ -500,7 +525,8 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 	<!-- End Google Map -->
 
-	<!-- Hàm kiểm tra đã đăng nhập hay chưa -->>
+	<!-- Hàm kiểm tra đã đăng nhập hay chưa -->
+	>
 	<script>
 		function checkLoginAndBook() {
 			<c:choose>
