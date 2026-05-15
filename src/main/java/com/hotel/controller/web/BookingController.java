@@ -50,9 +50,27 @@ public class BookingController extends HttpServlet {
             String ngayTraStr = request.getParameter("ngayTra");
             int soNguoi = Integer.parseInt(request.getParameter("soNguoi"));
 
+            tenNguoiDat = com.hotel.util.ValidationUtil.sanitize(tenNguoiDat);
+            thongTinLienHe = com.hotel.util.ValidationUtil.sanitize(thongTinLienHe);
+            
+            if (com.hotel.util.ValidationUtil.isNullOrEmpty(tenNguoiDat)) {
+                return; 
+            }
+            if (!com.hotel.util.ValidationUtil.isValidPhone(thongTinLienHe)) {
+                return;
+            }
+            
             java.sql.Date ngayNhan = java.sql.Date.valueOf(ngayNhanStr);
             java.sql.Date ngayTra = java.sql.Date.valueOf(ngayTraStr);
 
+            if (ngayNhan.after(ngayTra)) {
+                Phong p = phongService.getRoomDetail(maPhong);
+                request.setAttribute("error", "Lỗi: Ngày trả phòng không được nhỏ hơn ngày nhận phòng!");
+                request.setAttribute("room", p);
+                request.getRequestDispatcher("/WEB-INF/views/web/booking-form.jsp").forward(request, response);
+                return; 
+            }
+            
             HttpSession session = request.getSession();
             TaiKhoan user = (TaiKhoan) session.getAttribute("userSession");
             

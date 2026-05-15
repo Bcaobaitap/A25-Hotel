@@ -36,15 +36,15 @@
                 <input type="text" class="form-control" name="tenNguoiDat" placeholder="Họ và tên" required />
               </div>
               <div>
-                <input type="text" class="form-control" name="thongTinLienHe" placeholder="Số điện thoại" required />
+                <input type="text" class="form-control" name="thongTinLienHe" id="phoneInputBooking" placeholder="Số điện thoại" required />
               </div>
               <div>
                 <label style="color: black;">Ngày nhận phòng:</label>
-                <input type="date" class="form-control" name="ngayNhan" required />
+                <input type="date" class="form-control" name="ngayNhan" id="ngayNhan" required />
               </div>
               <div>
                 <label style="color: black;">Ngày trả phòng:</label>
-                <input type="date" class="form-control" name="ngayTra" required />
+                <input type="date" class="form-control" name="ngayTra" id="ngayTra" required />
               </div>
               <div>
                 <select class="form-control nice-select wide" name="soNguoi">
@@ -76,5 +76,18 @@
   </section>
 
   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+  
+  <script src="${pageContext.request.contextPath}/assets/js/validator.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Validation cũ
+        Validator.applyValidation('phoneInputBooking', 'phone', 'Số điện thoại không hợp lệ');
+        
+        // GỌI HÀM VALIDATION NGÀY THÁNG MỚI CHỈ VỚI 1 DÒNG
+        Validator.applyDateValidation('ngayNhan', 'ngayTra');
+    });
+</script>
+
 </body>
 </html>

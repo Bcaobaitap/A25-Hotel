@@ -55,10 +55,10 @@
                 <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required />
               </div>
               <div>
-                <input type="email" class="form-control" name="email" placeholder="Email liên hệ" value="${oldEmail}" required />
+                <input type="email" class="form-control" name="email" id="emailInput" placeholder="Email liên hệ" value="${oldEmail}" required />
               </div>
               <div>
-                <input type="text" class="form-control" name="phone" placeholder="Số điện thoại" value="${oldPhone}" required />
+                <input type="text" class="form-control" name="phone" id="phoneInput" placeholder="Số điện thoại" value="${oldPhone}" required />
               </div>
               
               <div class="btn_box">
@@ -104,6 +104,12 @@
  <!-- Google Map -->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
   <!-- End Google Map -->
-
+<script src="${pageContext.request.contextPath}/assets/js/validator.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Validator.applyValidation('emailInput', 'email', 'Vui lòng nhập đúng định dạng Email (VD: abc@gmail.com)');
+        Validator.applyValidation('phoneInput', 'phone', 'Số điện thoại gồm 10 số, bắt đầu bằng 0');
+    });
+</script>
 </body>
 </html>

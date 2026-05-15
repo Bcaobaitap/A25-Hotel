@@ -53,13 +53,21 @@ public class ReceptionistBookingController extends HttpServlet {
                 String ngayTraStr = request.getParameter("ngayTra");
                 int soNguoi = Integer.parseInt(request.getParameter("soNguoi"));
 
+                java.sql.Date ngayNhan = java.sql.Date.valueOf(ngayNhanStr);
+                java.sql.Date ngayTra = java.sql.Date.valueOf(ngayTraStr);
+                if (ngayNhan.after(ngayTra)) {
+                    // Nếu lễ tân chọn sai, đẩy về lại trang sơ đồ phòng kèm thông báo lỗi
+                    response.sendRedirect(request.getContextPath() + "/receptionist/room-status?msg=error_date");
+                    return;
+                }
+                
                 DonDatPhong don = new DonDatPhong();
                 don.setMaNV(profile.getMaNV()); 
                 don.setMaPhong(maPhong);
                 don.setTenNguoiDat(tenNguoiDat);
                 don.setThongTinLienHe(thongTinLienHe);
-                don.setNgayNhan(java.sql.Date.valueOf(ngayNhanStr));
-                don.setNgayTra(java.sql.Date.valueOf(ngayTraStr));
+                don.setNgayNhan(ngayNhan);
+                don.setNgayTra(ngayTra);
                 don.setSoNguoi(soNguoi);
 
                 Phong p = phongService.getRoomDetail(maPhong);          
