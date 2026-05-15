@@ -351,7 +351,7 @@
 			</ul>
 			<div class="filters-content">
 				<div class="row grid">
-				<!-- sửa lại vòng lại để tìm kiếm theo loại phòng -->
+					<!-- sửa lại vòng lại để tìm kiếm theo loại phòng -->
 					<c:forEach items="${danhSachPhong}" var="phong">
 						<%-- Bước này giúp chuyển "Phòng đơn" -> "phong-don" để khớp với filter --%>
 						<c:set var="loaiPhongClass"
@@ -398,71 +398,52 @@
 	<!-- end food section -->
 
 	<!--  xoá abt sction -->
-	<!-- book section -->
 	<section class="book_section layout_padding">
+
 		<div class="container">
+
 			<div class="heading_container">
-				<h2>Book A Room</h2>
+
+				<h2>Location</h2>
+
 			</div>
+
 			<div class="row">
-				<div class="col-md-6">
-					<div class="form_container">
-						<form action="">
-							<div>
-								<input type="text" class="form-control" placeholder="Your Name" />
-							</div>
-							<div>
-								<input type="text" class="form-control"
-									placeholder="Phone Number" />
-							</div>
-							<div>
-								<input type="email" class="form-control"
-									placeholder="Your Email" />
-							</div>
-							<div>
-								<select class="form-control nice-select wide">
-									<option value="" disabled selected>How many persons?</option>
-									<option value="">2</option>
-									<option value="">3</option>
-									<option value="">4</option>
-									<option value="">5</option>
-								</select>
-							</div>
-							<div>
-								<input type="date" class="form-control">
-							</div>
-							<div class="btn_box">
-								<button>Book Now</button>
-							</div>
-						</form>
+
+				<div class="col-md-12">
+
+					<div class="map_container">
+
+						<div id="googleMap" style="width: 100%; height: 400px;"></div>
+
 					</div>
+
 				</div>
-				<div class="col-md-6">
-					<div class="map_container ">
-						<div id="googleMap"></div>
-					</div>
-				</div>
+
 			</div>
+
 		</div>
+
 	</section>
-	<!-- end book section -->
-	<!-- client section -->
+
+	<!-- end map section -->
+
 	<section class="client_section layout_padding-bottom">
 		<div class="container">
 			<div
 				class="heading_container heading_center psudo_white_primary mb_45">
-				<h2>What Says Our Customers</h2>
+				<h2>Khách Hàng Nói Gì Về Chúng Tôi</h2>
 			</div>
 			<div class="carousel-wrap row ">
 				<div class="owl-carousel client_owl-carousel">
 					<div class="item">
 						<div class="box">
 							<div class="detail-box">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. Ut enim ad minim veniam</p>
+								<p>Khách sạn sạch sẽ, phòng rộng rãi và đầy đủ tiện nghi.
+									Nhân viên phục vụ rất nhiệt tình và thân thiện. Tôi sẽ quay lại
+									vào lần du lịch tiếp theo.</p>
 								<h6>Moana Michell</h6>
-								<p>magna aliqua</p>
+								<p>Khách hàng thân thiết</p>
 							</div>
 							<div class="img-box">
 								<img
@@ -474,15 +455,31 @@
 					<div class="item">
 						<div class="box">
 							<div class="detail-box">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. Ut enim ad minim veniam</p>
+								<p>Dịch vụ chuyên nghiệp, vị trí khách sạn thuận tiện di
+									chuyển. Đồ ăn ngon và không gian rất thoải mái. Tôi rất hài
+									lòng với trải nghiệm tại đây.</p>
 								<h6>Mike Hamell</h6>
-								<p>magna aliqua</p>
+								<p>Du khách</p>
 							</div>
 							<div class="img-box">
 								<img
 									src="${pageContext.request.contextPath}/assets/images/homepage_img/client2.jpg"
+									alt="" class="box-img">
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="box">
+							<div class="detail-box">
+								<p>Phòng nghỉ hiện đại, giá cả hợp lý và nhân viên hỗ trợ
+									24/7. Quy trình đặt phòng nhanh chóng và tiện lợi. Rất đáng để
+									trải nghiệm.</p>
+								<h6>Donald Trump</h6>
+								<p>Du khách</p>
+							</div>
+							<div class="img-box">
+								<img
+									src="${pageContext.request.contextPath}/assets/images/homepage_img/Donald_Trump.jpg"
 									alt="" class="box-img">
 							</div>
 						</div>
@@ -492,7 +489,6 @@
 		</div>
 	</section>
 	<!-- end client section -->
-
 	<div id="contact-section">
 		<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	</div>
