@@ -58,12 +58,6 @@
                       </c:otherwise>
                   </c:choose>
               </p>
-              <p><strong>Trạng thái:</strong> 
-                <span class="badge ${room.trangThaiPhong == 'TRỐNG' ? 'badge-success' : 'badge-danger'}" 
-                      style="padding: 5px 10px; font-size: 14px;">
-                    ${room.trangThaiPhong}
-                </span>
-              </p>
             </div>
             
             <p style="line-height: 1.8; margin-bottom: 30px;">

@@ -10,9 +10,11 @@ import jakarta.servlet.http.HttpSession;
 
 import com.hotel.model.TaiKhoan;
 import com.hotel.model.DonDatPhong;
+import com.hotel.model.KhachHang;
 import com.hotel.model.Phong;
 import com.hotel.service.DonDatService;
 import com.hotel.service.PhongService;
+import com.hotel.dao.KhachHangDAO;
 
 @WebServlet("/booking")
 public class BookingController extends HttpServlet {
@@ -53,9 +55,21 @@ public class BookingController extends HttpServlet {
 
             HttpSession session = request.getSession();
             TaiKhoan user = (TaiKhoan) session.getAttribute("userSession");
-
+            
+            KhachHangDAO khachHangDAO = new KhachHangDAO();
             DonDatPhong don = new DonDatPhong();
-            don.setMaKH(user.getMaTK());
+            
+            KhachHang khachHang = khachHangDAO.getByMaTK(user.getMaTK());
+            
+            if (khachHang != null) {
+         		don.setMaKH(khachHang.getMaKH());
+         	} else {
+        	 	request.setAttribute("error", "Tài khoản của bạn chưa cập nhật thông tin khách hàng!");
+             	request.getRequestDispatcher("/WEB-INF/views/web/booking-form.jsp").forward(request, response);
+             	return;
+         	}
+            
+            don.setMaKH(khachHang.getMaKH());
             don.setMaPhong(maPhong);
             don.setTenNguoiDat(tenNguoiDat);
             don.setThongTinLienHe(thongTinLienHe);
@@ -70,7 +84,8 @@ public class BookingController extends HttpServlet {
             if (success) {
                 response.sendRedirect(request.getContextPath() + "/my-orders?status=success");
             } else {
-                request.setAttribute("error", "Không thể đặt phòng, vui lòng thử lại!");
+            	request.setAttribute("error", "Phòng đã có người đặt trong khoảng thời gian này. Vui lòng chọn ngày khác!");
+                request.setAttribute("room", p); 
                 request.getRequestDispatcher("/WEB-INF/views/web/booking-form.jsp").forward(request, response);
             }
             

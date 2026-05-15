@@ -203,4 +203,28 @@ public class DonDatPhongDAO {
         }
         return list;
     }
+    
+ // Kiểm tra phòng có trùng lịch không
+    public boolean isRoomAvailable(int maPhong, java.util.Date ngayNhan, java.util.Date ngayTra) {
+        String sql = "SELECT COUNT(*) FROM DONDATPHONG WHERE MaPhong = ? "
+                   + "AND TrangThaiDon IN ('CHỜ XÁC NHẬN', 'ĐÃ XÁC NHẬN', 'ĐANG LƯU TRÚ') "
+                   + "AND NgayNhan < ? AND NgayTra > ?";
+                   
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
+            ps.setInt(1, maPhong);
+            ps.setDate(2, new java.sql.Date(ngayTra.getTime()));   // NgayNhan (cũ) < NgayTra (mới)
+            ps.setDate(3, new java.sql.Date(ngayNhan.getTime()));  // NgayTra (cũ) > NgayNhan (mới)
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) == 0; 
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false; 
+    }
 }

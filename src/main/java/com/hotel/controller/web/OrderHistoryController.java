@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import com.hotel.model.TaiKhoan;
 import com.hotel.model.DonDatPhong;
 import com.hotel.service.DonDatService;
+import com.hotel.dao.KhachHangDAO;
+import com.hotel.model.KhachHang;
 
 @WebServlet("/my-orders")
 public class OrderHistoryController extends HttpServlet {
@@ -26,8 +28,15 @@ public class OrderHistoryController extends HttpServlet {
         TaiKhoan user = (TaiKhoan) session.getAttribute("userSession");
 
         if (user != null) {
+        	KhachHangDAO khachHangDAO = new KhachHangDAO();
+            KhachHang kh = khachHangDAO.getByMaTK(user.getMaTK());
+            
             List<DonDatPhong> listDon = donDatService.getHistoryByCustomer(user.getMaTK());
   
+            if (kh != null) {
+                listDon = donDatService.getHistoryByCustomer(kh.getMaKH()); 
+            }
+            
             request.setAttribute("listDon", listDon);
             String status = request.getParameter("status");
             if ("success".equals(status)) {

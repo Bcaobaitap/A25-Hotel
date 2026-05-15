@@ -9,6 +9,10 @@ public class DonDatService {
     private DonDatPhongDAO donDatDAO = new DonDatPhongDAO();
 
     public boolean createBooking(DonDatPhong don, double giaPhong) {
+    	if (!donDatDAO.isRoomAvailable(don.getMaPhong(), don.getNgayNhan(), don.getNgayTra())) {
+            return false; 
+        }
+    	
         long diffInMillies = Math.abs(don.getNgayTra().getTime() - don.getNgayNhan().getTime());
         long nights = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         

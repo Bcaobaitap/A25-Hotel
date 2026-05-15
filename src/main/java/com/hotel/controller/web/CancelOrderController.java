@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import com.hotel.dao.KhachHangDAO;
+import com.hotel.model.KhachHang;
 import com.hotel.model.TaiKhoan;
 import com.hotel.service.DonDatService;
 
@@ -26,8 +28,15 @@ public class CancelOrderController extends HttpServlet {
         if (user != null) {
             try {
                 int maDon = Integer.parseInt(request.getParameter("maDon"));
-                boolean success = donDatService.cancelBooking(maDon, user.getMaTK());
+                KhachHangDAO khachHangDAO = new KhachHangDAO();
+                KhachHang kh = khachHangDAO.getByMaTK(user.getMaTK());
+                
+                boolean success = false;
 
+                if (kh != null) {
+                    success = donDatService.cancelBooking(maDon, kh.getMaKH());
+                }
+                
                 if (success) {
                     response.sendRedirect(request.getContextPath() + "/my-orders?cancel=success");
                 } else {

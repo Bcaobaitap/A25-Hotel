@@ -46,10 +46,8 @@ public class ManageBookingController extends HttpServlet {
                 
                 if ("approve".equals(action)) {
                     status = "ĐÃ XÁC NHẬN";
-                    phongService.updateRoomStatus(maPhong, "CÓ KHÁCH");
                 } else if ("reject".equals(action)) {
                     status = "ĐÃ TỪ CHỐI";
-                    phongService.updateRoomStatus(maPhong, "TRỐNG");
                 } else if ("checkin".equals(action)) {
                     status = "ĐANG LƯU TRÚ";
                     phongService.updateRoomStatus(maPhong, "CÓ KHÁCH");
