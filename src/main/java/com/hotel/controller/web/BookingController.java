@@ -95,7 +95,15 @@ public class BookingController extends HttpServlet {
             don.setNgayTra(ngayTra);
             don.setSoNguoi(soNguoi);
 
-            Phong p = phongService.getRoomDetail(maPhong);          
+            Phong p = phongService.getRoomDetail(maPhong); 
+            
+            if ("BẢO TRÌ".equals(p.getTrangThaiPhong())) {
+                request.setAttribute("error", "Phòng này đang được bảo trì, không thể đặt lúc này!");
+                request.setAttribute("room", p);
+                request.getRequestDispatcher("/WEB-INF/views/web/booking-form.jsp").forward(request, response);
+                return; 
+            }
+            
             DonDatService donDatService = new DonDatService();
             boolean success = donDatService.createBooking(don, p.getGia());
 
