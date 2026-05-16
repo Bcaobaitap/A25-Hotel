@@ -341,25 +341,6 @@
 			<div class="heading_container heading_center">
 				<div class="heading_container heading_center">
 					<h2>Our Rooms</h2>
-					<!-- Thanh tìm kiếm theo giá -->
-					<div class="price_filter_input"
-						style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; align-items: center;">
-						<div class="input-group" style="width: 200px;">
-							<input type="number" id="minPrice" class="form-control"
-								placeholder="VD: 500"
-								style="border-radius: 20px; border: 1px solid #ffbe33;">
-						</div>
-						<span style="font-weight: bold; color: #777;">—</span>
-						<div class="input-group" style="width: 200px;">
-							<input type="number" id="maxPrice" class="form-control"
-								placeholder="VD: 1500"
-								style="border-radius: 20px; border: 1px solid #ffbe33;">
-						</div>
-						<button id="btnFilterPrice" class="btn"
-							style="background-color: #ffbe33; color: white; border-radius: 20px; padding: 5px 20px;">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:5px; vertical-align:middle;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Lọc
-						</button>
-					</div>
 				</div>
 			</div>
 			<!-- sửa lại data-filter -->
@@ -541,60 +522,7 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
 	<!-- End Google Map -->
-
-	<!-- Hàm kiểm tra đã đăng nhập hay chưa -->
-	>
-	<script>
-		function checkLoginAndBook() {
-			<c:choose>
-			<c:when test="${empty userSession}">
-			// Chưa đăng nhập → redirect về login
-			window.location.href = "${pageContext.request.contextPath}/login";
-			</c:when>
-			<c:otherwise>
-			// Đã đăng nhập → redirect về rooms
-			window.location.href = "${pageContext.request.contextPath}/rooms";
-			</c:otherwise>
-			</c:choose>
-		}
-	</script>
-<!-- 	hàm tìm kiếm theo giá  -->
-	<script>
-$(window).on('load', function () {
-    var $grid = $(".grid").isotope({
-        itemSelector: ".all",
-        layoutMode: "fitRows",
-    });
-
-    function performFilter() {
-        var minInput = $("#minPrice").val().trim();
-        var maxInput = $("#maxPrice").val().trim();
-        var min = minInput !== "" ? parseFloat(minInput) : 0;
-        var max = maxInput !== "" ? parseFloat(maxInput) : Infinity;
-        var typeFilter = $(".filters_menu li.active").attr("data-filter");
-
-        $grid.isotope({
-            filter: function () {
-                // data-price lấy trực tiếp từ ${phong.gia} - là số nguyên trong DB
-                var priceStr = $(this).attr("data-price") || "0";
-                var price = parseFloat(priceStr);
-
-                var isPriceMatch = (price >= min && price <= max);
-                var isTypeMatch = (typeFilter === "*") ? true : $(this).is(typeFilter);
-
-                return isPriceMatch && isTypeMatch;
-            }
-        });
-    }
-
-    $("#btnFilterPrice").on('click', performFilter);
-    $(".filters_menu li").on('click', function () {
-        $(".filters_menu li").removeClass("active");
-        $(this).addClass("active");
-        performFilter();
-    });
-});
-</script>
+	<script src="${pageContext.request.contextPath}/assets/js/auth.js"></script>
 
 </body>
 </html>

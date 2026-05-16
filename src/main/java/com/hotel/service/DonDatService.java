@@ -8,6 +8,10 @@ import java.util.List;
 public class DonDatService {
     private DonDatPhongDAO donDatDAO = new DonDatPhongDAO();
 
+    public void setDonDatDAO(DonDatPhongDAO mockDAO) {
+        this.donDatDAO = mockDAO;
+    }
+    
     public boolean createBooking(DonDatPhong don, double giaPhong) {
     	if (!donDatDAO.isRoomAvailable(don.getMaPhong(), don.getNgayNhan(), don.getNgayTra())) {
             return false; 

@@ -14,6 +14,7 @@ public class TaiKhoanServiceTest {
         taiKhoanService = new TaiKhoanService();
     }
 
+    // TEST CASE 1: Kiểm thử đăng nhập với mật khẩu đúng
     @Test
     public void testLogin_Success() {
         String tenDNHopLe = "admin"; 
@@ -24,6 +25,7 @@ public class TaiKhoanServiceTest {
         Assertions.assertEquals(tenDNHopLe, result.getTenDN(), "Tên đăng nhập không khớp");
     }
 
+    // TEST CASE 2: Kiểm thử đăng nhập với mật khẩu sai
     @Test
     public void testLogin_Fail_WrongPassword() {
         String tenDN = "admin";
@@ -33,6 +35,7 @@ public class TaiKhoanServiceTest {
         Assertions.assertNull(result, "Đăng nhập sai mật khẩu phải trả về null");
     }
 
+    // TEST CASE 3: Kiểm thử đăng nhập với tài khoản không tồn tại
     @Test
     public void testLogin_Fail_AccountNotExist() {
         String tenDNKhongTonTai = "user_ghost_9999";
@@ -40,5 +43,20 @@ public class TaiKhoanServiceTest {
 
         TaiKhoan result = taiKhoanService.login(tenDNKhongTonTai, matKhau);
         Assertions.assertNull(result, "Tài khoản không tồn tại phải trả về null");
+    }
+    
+    // TEST CASE 4: Kiểm thử ngăn chặn đăng ký trùng tên đăng nhập
+    @Test
+    public void testRegisterCustomer_WithDuplicateUsername_ShouldReturnErrorMessage() {
+        String duplicateUsername = "admin";
+        String matKhau = "password123";
+        String hoTen = "Nguoi Dung Clone";
+        String email = "clone@gmail.com";
+        String sdt = "0988777666";
+        
+        String result = taiKhoanService.registerCustomer(duplicateUsername, matKhau, hoTen, email, sdt);   
+        String expectedError = "Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!";
+
+        Assertions.assertEquals(expectedError, result, "Lỗi: Hệ thống không chặn được việc đăng ký trùng tên đăng nhập!");
     }
 }

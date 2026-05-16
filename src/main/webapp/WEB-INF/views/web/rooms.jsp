@@ -36,12 +36,35 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>Tất Cả Các Phòng</h2>
+        
+        <div class="price_filter_input" style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; align-items: center;">
+          <div class="input-group" style="width: 200px;">
+            <input type="number" id="minPrice" class="form-control" placeholder="Giá tối thiểu (VD: 500)" style="border-radius: 20px; border: 1px solid #ffbe33;">
+          </div>
+          <span style="font-weight: bold; color: #777;">—</span>
+          <div class="input-group" style="width: 200px;">
+            <input type="number" id="maxPrice" class="form-control" placeholder="Giá tối đa (VD: 1500)" style="border-radius: 20px; border: 1px solid #ffbe33;">
+          </div>
+          <button id="btnFilterPrice" class="btn" style="background-color: #ffbe33; color: white; border-radius: 20px; padding: 5px 20px;">
+            <i class="fa fa-search" aria-hidden="true" style="margin-right: 5px;"></i> Lọc Giá
+          </button>
+        </div>
+
+        <ul class="filters_menu" style="display: flex; justify-content: center; list-style: none; padding: 0; gap: 15px; margin-bottom: 30px; cursor: pointer;">
+          <li class="active" data-filter="*" style="font-weight: bold; color: #ffbe33;">Tất cả</li>
+          <li data-filter=".phong-don">Phòng đơn</li>
+          <li data-filter=".phong-doi">Phòng đôi</li>
+          <li data-filter=".phong-can-cao-cap">Phòng cận cao cấp</li>
+          <li data-filter=".phong-cao-cap">Phòng cao cấp</li>
+        </ul>
       </div>
 
       <div class="filters-content">
         <div class="row grid">
           <c:forEach items="${danhSachPhong}" var="phong">
-            <div class="col-sm-6 col-lg-4 all">
+            <c:set var="loaiPhongSlug" value="${phong.loaiPhong.toLowerCase().replace(' ', '-').replace('đ', 'd').replaceAll('[àáạảãâầấậẩẫăằắặẳẵ]', 'a').replaceAll('[èéẹẻẽêềếệểễ]', 'e').replaceAll('[ìíịỉĩ]', 'i').replaceAll('[òóọỏõôồốộổỗơờớợởỡ]', 'o').replaceAll('[ùúụủũưừứựửữ]', 'u').replaceAll('[ỳýỵỷỹ]', 'y')}" />
+
+            <div class="col-sm-6 col-lg-4 all ${loaiPhongSlug}" data-price="${phong.gia}">
               <div class="box">
                 <div>
                   <div class="img-box">
@@ -73,6 +96,10 @@
 
   <script src="${pageContext.request.contextPath}/assets/js/homepage_js/jquery-3.4.1.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/homepage_js/bootstrap.js"></script>
+  
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/homepage_js/custom.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/room-filter.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/auth.js"></script>
 </body>
 </html>

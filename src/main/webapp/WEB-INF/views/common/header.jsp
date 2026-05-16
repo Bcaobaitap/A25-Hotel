@@ -24,4 +24,10 @@
  <link href="${pageContext.request.contextPath}/assets/css/homepage_css/style.css" rel="stylesheet" />
  <!-- responsive style -->
  <link href="${pageContext.request.contextPath}/assets/css/homepage_css/responsive.css" rel="stylesheet" />
+ <script>
+    window.AppConfig = {
+        contextPath: "${pageContext.request.contextPath}",
+        isLoggedIn: ${not empty userSession ? 'true' : 'false'}
+    };
+</script>
 </head>
