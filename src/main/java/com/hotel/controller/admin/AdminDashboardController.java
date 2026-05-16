@@ -92,5 +92,4 @@ public class AdminDashboardController extends HttpServlet {
         
         return "[" + String.join(",", list) + "]";
     }
-    
 }

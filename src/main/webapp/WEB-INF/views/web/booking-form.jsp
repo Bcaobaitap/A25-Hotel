@@ -29,6 +29,12 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form_container">
+          <c:if test="${not empty error}">
+    		<div style="color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 15px; border: 1px solid #f5c6cb;">
+        		<i class="fa fa-exclamation-triangle" aria-hidden="true" style="margin-right: 5px;"></i>
+        		${error}
+    		</div>
+		</c:if>
             <form action="${pageContext.request.contextPath}/booking" method="POST">
               <input type="hidden" name="maPhong" value="${room.maPhong}">
               

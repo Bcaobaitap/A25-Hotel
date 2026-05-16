@@ -39,6 +39,10 @@ public class DonDatService {
     }
     
     public boolean createWalkInBooking(DonDatPhong don, double giaPhong) {
+    	if (!donDatDAO.isRoomAvailable(don.getMaPhong(), don.getNgayNhan(), don.getNgayTra())) {
+            return false; 
+        }
+    	
         long diffInMillies = Math.abs(don.getNgayTra().getTime() - don.getNgayNhan().getTime());
         long nights = java.util.concurrent.TimeUnit.DAYS.convert(diffInMillies, java.util.concurrent.TimeUnit.MILLISECONDS);
         

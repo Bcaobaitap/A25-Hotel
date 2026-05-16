@@ -66,11 +66,20 @@
             </p>
             
             <div class="btn-box">
-              <a href="${pageContext.request.contextPath}/booking?id=${room.maPhong}" 
-                 style="background-color: #ffbe33; color: white; padding: 12px 35px; border-radius: 45px; font-weight: bold;">
+    <c:choose>
+        <c:when test="${room.trangThaiPhong == 'BẢO TRÌ'}">
+            <button disabled style="background-color: #9e9e9e; color: white; padding: 12px 35px; border-radius: 45px; font-weight: bold; border: none; cursor: not-allowed;">
+                PHÒNG ĐANG BẢO TRÌ
+            </button>
+        </c:when>
+        <c:otherwise>
+            <a href="${pageContext.request.contextPath}/booking?id=${room.maPhong}"
+               style="background-color: #ffbe33; color: white; padding: 12px 35px; border-radius: 45px; font-weight: bold;">
                 ĐẶT PHÒNG NGAY
-              </a>
-            </div>
+            </a>
+        </c:otherwise>
+    </c:choose>
+</div>
           </div>
         </div>
       </div>
