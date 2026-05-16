@@ -20,23 +20,36 @@ public class ReceptionistDashboardController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		PhongDAO phongDao = new PhongDAO();
-		DonDatPhongDAO donDatPhongDao=new DonDatPhongDAO();
-		// hiển thị tổng doanh thu trong ngày 
+		DonDatPhongDAO donDatPhongDao = new DonDatPhongDAO();
+		
+		// 1. Lấy số liệu thống kê cho các thẻ đầu trang
 		double total = phongDao.GetRevenue();
-		//hiển thị tổng số lượng khách đang lưu trú 
-		double totalGuests=phongDao.GetTotalGuests();
-		//hiển thị tổng số lượng đơn cần duyệt 
+		double totalGuests = phongDao.GetTotalGuests();
 		int totalApplication = donDatPhongDao.getConfirmApplication();
-		//hiển thị tổng số phòng còn trống 
-		int totalEmptyRoom=phongDao.getEmptyRoom();
-		// hiển thị 5 đơn đặt phòng mời nhất
-		List<DonDatPhong> getRecentBookings = donDatPhongDao.getRecentBookings();
+		int totalEmptyRoom = phongDao.getEmptyRoom();
+		
+		// 2. Lấy danh sách phân luồng theo nghiệp vụ
+		List<DonDatPhong> newestBookings = donDatPhongDao.getNewestBookings();     
+		List<DonDatPhong> recentActivities = donDatPhongDao.getRecentActivities(); 
+		
+		// 3. Gắn dữ liệu vào Request Attribute
 		request.setAttribute("currentOccupancyRevenue", total);
 		request.setAttribute("currentTotalGuests", totalGuests);
 		request.setAttribute("currentConfirmApplication", totalApplication);
 		request.setAttribute("currentEmptyRoom", totalEmptyRoom);
-		request.setAttribute("recentBookings", getRecentBookings);
+		
+		request.setAttribute("newestBookings", newestBookings);
+		request.setAttribute("recentActivities", recentActivities);
+		
+		// 4. Chuyển tiếp dữ liệu sang trang JSP
 		request.getRequestDispatcher("/WEB-INF/views/receptionist/dashboard.jsp").forward(request, response);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doGet(request, response);
 	}
 }

@@ -15,6 +15,7 @@ public class DonDatPhong {
     private Date ngayTra;
     private int soNguoi;
     private String thongTinLienHe;
+    private java.sql.Timestamp ngayCapNhat;
 
     public DonDatPhong() {}
 
@@ -68,4 +69,13 @@ public class DonDatPhong {
 
     public String getThongTinLienHe() { return thongTinLienHe; }
     public void setThongTinLienHe(String thongTinLienHe) { this.thongTinLienHe = thongTinLienHe; }
+    
+    public java.sql.Timestamp getNgayCapNhat() {
+        return ngayCapNhat;
+    }
+
+    public void setNgayCapNhat(java.sql.Timestamp ngayCapNhat) {
+        // Bản thân java.sql.Timestamp kế thừa từ java.util.Date nên bộ biên dịch sẽ chấp nhận hoàn toàn
+        this.ngayCapNhat = ngayCapNhat; 
+    }
 }
