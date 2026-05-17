@@ -15,7 +15,7 @@ public class DBContext {
 
             config.setJdbcUrl("jdbc:mysql://localhost:3306/qlks_11");
             config.setUsername("root");
-            config.setPassword("123456");
+            config.setPassword("thanhcv000");
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
             // Tối ưu hóa "Hồ chứa" (Pool Sizing)

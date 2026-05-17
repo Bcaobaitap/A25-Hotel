@@ -258,8 +258,40 @@ public class DonDatPhongDAO {
         }
         return false; 
     }
-    
- 
-}
 
+    public int getLatestBookingIdByName(String tenNguoiDat) {
+        int maDon = -1;
+        String query = "SELECT MaDon FROM DONDATPHONG WHERE TenNguoiDat = ? ORDER BY MaDon DESC LIMIT 1";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, tenNguoiDat);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    maDon = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+        return maDon;
+    }
+    
+    /**
+     * Cập nhật trạng thái đơn hàng chỉ dựa vào Mã Đơn (Dùng cho test hoặc Admin ép trạng thái)
+     * Bỏ qua kiểm tra MaKH để áp dụng được cho cả đơn của khách vãng lai (MaKH = null)
+     */
+    public boolean updateStatusByMaDon(int maDon, String status) {
+        boolean result = false;
+        String query = "UPDATE DONDATPHONG SET TrangThaiDon = ? WHERE MaDon = ?";
+        try (java.sql.Connection conn = com.hotel.dao.DBContext.getConnection();
+             java.sql.PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, status);
+            ps.setInt(2, maDon);
+            result = ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+}
 

@@ -194,4 +194,21 @@ public class PhongDAO {
 		};
 		return total;
 	}
+
+    public int getRoomIdByName(String tenPhong) {
+        int maPhong = -1;
+        String query = "SELECT MaPhong FROM PHONG WHERE TenPhong = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, tenPhong);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    maPhong = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+        }
+        return maPhong;
+    }
 }

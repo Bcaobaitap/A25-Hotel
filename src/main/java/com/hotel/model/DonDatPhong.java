@@ -75,7 +75,6 @@ public class DonDatPhong {
     }
 
     public void setNgayCapNhat(java.sql.Timestamp ngayCapNhat) {
-        // Bản thân java.sql.Timestamp kế thừa từ java.util.Date nên bộ biên dịch sẽ chấp nhận hoàn toàn
         this.ngayCapNhat = ngayCapNhat; 
     }
 }
