@@ -36,6 +36,7 @@
     <div class="container">
       <div class="heading_container heading_center">
         <h2>Tất Cả Các Phòng</h2>
+        </div>
         
         <div class="price_filter_input" style="margin: 20px 0; display: flex; justify-content: center; gap: 15px; align-items: center;">
           <div class="input-group" style="width: 200px;">
@@ -57,7 +58,7 @@
           <li data-filter=".phong-can-cao-cap">Phòng cận cao cấp</li>
           <li data-filter=".phong-cao-cap">Phòng cao cấp</li>
         </ul>
-      </div>
+      
 
       <div class="filters-content">
         <div class="row grid">

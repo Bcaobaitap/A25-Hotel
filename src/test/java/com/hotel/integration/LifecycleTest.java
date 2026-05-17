@@ -67,7 +67,7 @@ public class LifecycleTest {
         Assertions.assertEquals("CÓ KHÁCH", p.getTrangThaiPhong(), "Logic đồng bộ trạng thái vật lý của phòng bị sai");
     }
     
- // TC Bổ sung: Kiểm thử luồng Khách hàng tự hủy đơn
+    // Kiểm thử luồng Khách hàng tự hủy đơn
     @Test
     public void testVongDoiDonHang_KhachHangHuyDon() {
         com.hotel.service.DonDatService donDatService = new com.hotel.service.DonDatService();
