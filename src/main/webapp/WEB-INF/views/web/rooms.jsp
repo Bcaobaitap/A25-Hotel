@@ -47,7 +47,7 @@
             <input type="number" id="maxPrice" class="form-control" placeholder="Giá tối đa (VD: 1500)" style="border-radius: 20px; border: 1px solid #ffbe33;">
           </div>
           <button id="btnFilterPrice" class="btn" style="background-color: #ffbe33; color: white; border-radius: 20px; padding: 5px 20px;">
-            <i class="fa fa-search" aria-hidden="true" style="margin-right: 5px;"></i> Lọc Giá
+             Lọc Giá
           </button>
         </div>
 

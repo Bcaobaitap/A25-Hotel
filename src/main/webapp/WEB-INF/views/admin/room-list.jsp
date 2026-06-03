@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="icon" type="image/png"
 	href="${pageContext.request.contextPath}/assets/images/dashboard_img/favicon.png">
-<title>Quản Lý Phòng - Admin</title>
+<title>Quản Lý Phòng</title>
 
 <link rel="stylesheet" type="text/css"
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />

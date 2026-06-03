@@ -379,7 +379,7 @@
 												href="${pageContext.request.contextPath}/room-detail?id=${phong.maPhong}">
 												<div class="icon-container"
 													style="background-color: #ffbe33; padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">
-													<i class="fa fa-bed" aria-hidden="true"
+													<i class="fa fa-arrow-right" aria-hidden="true"
 														style="color: white; font-size: 18px;"></i>
 												</div>
 											</a>
@@ -392,8 +392,7 @@
 				</div>
 			</div>
 			<div class="btn-box">
-				<a href="${pageContext.request.contextPath}/rooms"> Hiển thị
-					thêm </a>
+				<a href="${pageContext.request.contextPath}/rooms"> Hiển thị thêm </a>
 			</div>
 		</div>
 	</section>

@@ -13,6 +13,7 @@ import com.hotel.model.DonDatPhong;
 import com.hotel.model.NhanVien;
 import com.hotel.service.DonDatService;
 import com.hotel.service.PhongService;
+import com.hotel.report.BookingReportGenerator;
 
 @WebServlet("/receptionist/manage-booking")
 public class ManageBookingController extends HttpServlet {
@@ -21,10 +22,49 @@ public class ManageBookingController extends HttpServlet {
     private PhongService phongService = new PhongService();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String fromDate = request.getParameter("fromDate");
+        String toDate = request.getParameter("toDate");
+        String action = request.getParameter("action");
 
-        List<DonDatPhong> listDon = donDatService.getAllBookings();
+        List<DonDatPhong> listDon;
+        
+        // 1. Kiểm tra tính hợp lệ của tham số ngày
+        if (fromDate != null && toDate != null && !fromDate.isEmpty() && !toDate.isEmpty()) {
+            // Kiểm tra logic: Nếu từ ngày lớn hơn đến ngày 
+            if (fromDate.compareTo(toDate) > 0) {
+                // Biện pháp an toàn: Hoán đổi hai mốc ngày để câu lệnh SQL không bị lỗi logic
+                String temp = fromDate;
+                fromDate = toDate;
+                toDate = temp;
+            }
+            
+            listDon = donDatService.getBookingsByDateRange(fromDate, toDate);
+            request.setAttribute("fromDate", fromDate);
+            request.setAttribute("toDate", toDate);
+        } else {
+            listDon = donDatService.getAllBookings();
+        }
+
+        // 2. Xử lý xuất báo cáo
+        try {
+            if ("export_excel".equals(action)) {
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=BaoCao_DonDatPhong.xlsx");
+                BookingReportGenerator.exportExcel(listDon, response.getOutputStream());
+                return;
+            } else if ("export_pdf".equals(action)) {
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=BaoCao_DonDatPhong.pdf");
+                String fontPath = getServletContext().getRealPath("/assets/fonts/dashboard_fonts/Arial.ttf");
+                BookingReportGenerator.exportPdf(listDon, response.getOutputStream(), fontPath);
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("msg", "error");
+        }
+
         request.setAttribute("listDon", listDon);
         request.getRequestDispatcher("/WEB-INF/views/receptionist/booking-management.jsp").forward(request, response);
     }

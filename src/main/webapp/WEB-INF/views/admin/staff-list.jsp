@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/images/dashboard_img/favicon.png">
-  <title>Quản Lý Nhân Sự - Admin</title>
+  <title>Quản Lý Nhân Sự</title>
   
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <link href="${pageContext.request.contextPath}/assets/css/dashboard_css/nucleo-icons.css" rel="stylesheet" />
@@ -44,10 +44,25 @@
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
                 <h6 class="text-white text-capitalize ps-3 mb-0">Danh Sách Nhân Sự Hệ Thống</h6>
-                <!-- Nút bật Modal Thêm Nhân viên -->
-                <button type="button" class="btn btn-sm btn-light me-3 mb-0" data-bs-toggle="modal" data-bs-target="#addStaffModal">
-                  <i class="material-icons text-sm">add</i> Thêm Nhân Sự
-                </button>
+                
+                <div class="d-flex align-items-center mt-2 mt-md-0">
+            		<a href="${pageContext.request.contextPath}/admin/staff?action=export_excel" 
+               			class="btn btn-sm btn-success mb-0 me-2 shadow-none d-flex align-items-center" 
+               			title="Tải về báo cáo Excel">
+                		<i class="material-icons text-sm me-1">table_view</i> Xuất Excel
+            		</a>
+            
+            		<a href="${pageContext.request.contextPath}/admin/staff?action=export_pdf" 
+               			class="btn btn-sm btn-danger mb-0 shadow-none d-flex align-items-center" 
+               			target="_blank"
+               			title="Tải về báo cáo PDF">
+                		<i class="material-icons text-sm me-1">picture_as_pdf</i> Xuất PDF
+            		</a>
+            		<button type="button" class="btn btn-sm btn-light me-3 mb-0" data-bs-toggle="modal" data-bs-target="#addStaffModal">
+                  		<i class="material-icons text-sm">add</i> Thêm Nhân Sự
+            		</button>
+        		</div>
+                
               </div>
             </div>
             

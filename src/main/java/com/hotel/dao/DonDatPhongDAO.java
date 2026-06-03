@@ -293,5 +293,41 @@ public class DonDatPhongDAO {
         }
         return result;
     }
+    
+    public List<DonDatPhong> getBookingsByDateRange(java.sql.Date fromDate, java.sql.Date toDate) {
+        List<DonDatPhong> list = new ArrayList<>();
+        // Lọc các đơn hàng dựa trên Ngày Tạo Đơn nằm trong khoảng lựa chọn
+        String sql = "SELECT * FROM DONDATPHONG WHERE DATE(NgayTaoDon) BETWEEN ? AND ? ORDER BY NgayTaoDon DESC";
+
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setDate(1, fromDate);
+            ps.setDate(2, toDate);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DonDatPhong don = new DonDatPhong();
+                    don.setMaDon(rs.getInt("MaDon"));
+                    don.setMaKH((Integer) rs.getObject("MaKH"));
+                    don.setMaNV((Integer) rs.getObject("MaNV"));
+                    don.setMaPhong(rs.getInt("MaPhong"));
+                    don.setNgayTaoDon(rs.getTimestamp("NgayTaoDon"));
+                    don.setTrangThaiDon(rs.getString("TrangThaiDon"));
+                    don.setTongTien(rs.getDouble("TongTien"));
+                    don.setTenNguoiDat(rs.getString("TenNguoiDat"));
+                    don.setNgayNhan(rs.getDate("NgayNhan"));
+                    don.setNgayTra(rs.getDate("NgayTra"));
+                    don.setSoNguoi(rs.getInt("SoNguoi"));
+                    don.setThongTinLienHe(rs.getString("ThongTinLienHe"));
+                    don.setNgayCapNhat(rs.getTimestamp("NgayCapNhat"));
+                    list.add(don);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 
