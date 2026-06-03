@@ -11,7 +11,7 @@
 	<div class="hero_area">
 		<div class="bg-box">
 			<img
-				src="${pageContext.request.contextPath}/assets/images/homepage_img/hero-bg.jpg"
+				src="${pageContext.request.contextPath}/assets/images/homepage_img/of1.jpg"
 				alt="">
 		</div>
 
@@ -76,7 +76,7 @@
 				<div class="col-md-6">
 					<div class="map_container">
 						<img
-							src="${pageContext.request.contextPath}/assets/images/homepage_img/o1.jpg"
+							src="${pageContext.request.contextPath}/assets/images/homepage_img/of1.jpg"
 							style="width: 100%; border-radius: 10px;" alt="">
 					</div>
 				</div>
