@@ -55,4 +55,16 @@ public class DonDatService {
         
         return donDatDAO.insertByReceptionist(don);
     }
+
+    public List<DonDatPhong> getBookingsByDateRange(String fromDateStr, String toDateStr) {
+        try {
+            java.sql.Date fromDate = java.sql.Date.valueOf(fromDateStr);
+            java.sql.Date toDate = java.sql.Date.valueOf(toDateStr);
+            return donDatDAO.getBookingsByDateRange(fromDate, toDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Nếu ngày tháng truyền vào bị lỗi hoặc trống, trả về toàn bộ đơn hàng
+            return getAllBookings(); 
+        }
+    }
 }

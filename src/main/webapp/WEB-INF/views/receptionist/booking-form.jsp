@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Tạo Đơn Tại Quầy - Lễ Tân</title>
+  <title>Tạo Đơn Tại Quầy</title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <link href="${pageContext.request.contextPath}/assets/css/dashboard_css/nucleo-icons.css" rel="stylesheet" />
   <link href="${pageContext.request.contextPath}/assets/css/dashboard_css/nucleo-svg.css" rel="stylesheet" />

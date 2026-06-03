@@ -2,6 +2,7 @@ package com.hotel.controller.admin;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,37 +16,100 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import com.hotel.dao.DBContext;
+import com.hotel.dto.DoanhThuDTO;
+import com.hotel.report.RevenueReportGenerator;
+
+import com.hotel.dao.DBContext;
 
 @WebServlet("/admin/dashboard")
 public class AdminDashboardController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int tongSoPhong = getCount("SELECT COUNT(*) FROM PHONG");
         int tongDonDat = getCount("SELECT COUNT(*) FROM DONDATPHONG");
         int tongKhachHang = getCount("SELECT COUNT(*) FROM KHACHHANG");
         int tongNhanSu = getCount("SELECT COUNT(*) FROM NHANVIEN");
-
+        
         request.setAttribute("tongSoPhong", tongSoPhong);
         request.setAttribute("tongDonDat", tongDonDat);
         request.setAttribute("tongKhachHang", tongKhachHang);
         request.setAttribute("tongNhanSu", tongNhanSu);
-        
-        // Lấy dữ liệu doanh thu 7 ngày gần nhất dựa trên giá phòng đặt
-        String sqlDoanhThu = "SELECT DATE_FORMAT(NgayNhan, '%d/%m') AS Ngay, SUM(TongTien) AS DoanhThu " +
-                "FROM DONDATPHONG " +
-                "GROUP BY DATE_FORMAT(NgayNhan, '%d/%m') " +
-                "ORDER BY MIN(NgayNhan) DESC " +
-                "LIMIT 7";
-        
-        String labelsChart = getChartLabelsAndData(sqlDoanhThu, true);  // Trả về chuỗi dạng: "12/05","13/05",...
-        String dataChart = getChartLabelsAndData(sqlDoanhThu, false);   // Trả về chuỗi dạng: 1500000,2400000,...
 
-        request.setAttribute("labelsChart", labelsChart);
-        request.setAttribute("dataChart", dataChart);
+        String fromDate = request.getParameter("fromDate");
+        String toDate = request.getParameter("toDate");
+        String action = request.getParameter("action");
+
+        List<DoanhThuDTO> listDoanhThu = new ArrayList<>();
+        String sqlDoanhThu = "";
+
+        try (Connection conn = DBContext.getConnection()) {
+            PreparedStatement ps;
+            // Nếu có bộ lọc thời gian
+            if (fromDate != null && !fromDate.isEmpty() && toDate != null && !toDate.isEmpty()) {
+                sqlDoanhThu = "SELECT DATE_FORMAT(NgayNhan, '%d/%m/%Y') AS Ngay, SUM(TongTien) AS DoanhThu " +
+                              "FROM DONDATPHONG " +
+                              "WHERE TrangThaiDon IN ('ĐÃ XÁC NHẬN', 'ĐANG LƯU TRÚ', 'ĐÃ HOÀN THÀNH') " + 
+                              "AND NgayNhan >= ? AND NgayNhan <= ? " +
+                              "GROUP BY DATE_FORMAT(NgayNhan, '%d/%m/%Y'), NgayNhan " +
+                              "ORDER BY NgayNhan ASC";
+                ps = conn.prepareStatement(sqlDoanhThu);
+                ps.setDate(1, Date.valueOf(fromDate));
+                ps.setDate(2, Date.valueOf(toDate));
+            } else {
+                // Mặc định: 7 ngày gần nhất
+                sqlDoanhThu = "SELECT DATE_FORMAT(NgayNhan, '%d/%m/%Y') AS Ngay, SUM(TongTien) AS DoanhThu " +
+                              "FROM DONDATPHONG " +
+                              "WHERE TrangThaiDon IN ('ĐÃ XÁC NHẬN', 'ĐANG LƯU TRÚ', 'ĐÃ HOÀN THÀNH') " +
+                              "GROUP BY DATE_FORMAT(NgayNhan, '%d/%m/%Y'), NgayNhan " +
+                              "ORDER BY NgayNhan DESC LIMIT 7";
+                ps = conn.prepareStatement(sqlDoanhThu);
+            }
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listDoanhThu.add(new DoanhThuDTO(rs.getString("Ngay"), rs.getDouble("DoanhThu")));
+            }
+            
+            // Đảo ngược lại nếu là 7 ngày gần nhất để biểu đồ vẽ đúng trục thời gian
+            if (fromDate == null || fromDate.isEmpty()) {
+                Collections.reverse(listDoanhThu);
+            }
+        } catch (Exception e) { e.printStackTrace(); }
+
+        // Tính năng Xuất File
+        try {
+            if ("export_excel".equals(action)) {
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=BaoCao_DoanhThu.xlsx");
+                RevenueReportGenerator.exportExcel(listDoanhThu, response.getOutputStream());
+                return;
+            } else if ("export_pdf".equals(action)) {
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=BaoCao_DoanhThu.pdf");
+                String fontPath = getServletContext().getRealPath("/assets/fonts/dashboard_fonts/Arial.ttf");
+                RevenueReportGenerator.exportPdf(listDoanhThu, response.getOutputStream(), fontPath);
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("msg", "error_export");
+        }
+
+        // Đổ dữ liệu ra Chart.js
+        List<String> labels = new ArrayList<>();
+        List<String> data = new ArrayList<>();
+        for(DoanhThuDTO dto : listDoanhThu) {
+            labels.add("\"" + dto.getNgay() + "\"");
+            data.add(String.valueOf(dto.getTongTien()));
+        }
+        if (labels.isEmpty()) { labels.add("\"Không có dữ liệu\""); data.add("0"); }
+
+        request.setAttribute("labelsChart", "[" + String.join(",", labels) + "]");
+        request.setAttribute("dataChart", "[" + String.join(",", data) + "]");
+        request.setAttribute("fromDate", fromDate);
+        request.setAttribute("toDate", toDate);
 
         request.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(request, response);
     }
@@ -62,34 +126,5 @@ public class AdminDashboardController extends HttpServlet {
             e.printStackTrace();
         }
         return 0;
-    }
-    
-    
-    // Hàm bổ sung giúp lấy chuỗi dữ liệu vẽ biểu đồ cực nhanh không cần cài thêm thư viện JSON
-    private String getChartLabelsAndData(String sql, boolean isLabel) {
-        List<String> list = new ArrayList<>();
-        try (Connection conn = DBContext.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-            
-            while (rs.next()) {
-                if (isLabel) {
-                    list.add("\"" + rs.getString("Ngay") + "\""); // Thêm dấu ngoặc kép cho chuỗi chữ
-                } else {
-                    list.add(String.valueOf(rs.getInt("DoanhThu")));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Vì SQL lấy DESC (mới nhất lên trước) để lấy đúng 7 ngày, ta đảo ngược lại cho biểu đồ chạy từ trái sang phải hợp lý
-        Collections.reverse(list); 
-        
-        // Nếu DB chưa có dữ liệu, trả về dữ liệu mẫu tránh lỗi biểu đồ trắng trơn
-        if(list.isEmpty()) {
-            return isLabel ? "[\"T2\",\"T3\",\"T4\",\"T5\",\"T6\",\"T7\",\"CN\"]" : "[0,0,0,0,0,0,0]";
-        }
-        
-        return "[" + String.join(",", list) + "]";
     }
 }

@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import com.hotel.model.TaiKhoan;
 import com.hotel.service.TaiKhoanService;
+import com.hotel.report.EmployeeReportGenerator;
 
 @WebServlet("/admin/staff")
 public class ManageStaffController extends HttpServlet {
@@ -17,11 +18,32 @@ public class ManageStaffController extends HttpServlet {
     private TaiKhoanService taiKhoanService = new TaiKhoanService();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
         
-        List<TaiKhoan> listStaff = taiKhoanService.getStaffList();
-        request.setAttribute("listStaff", listStaff);
+        // Gọi danh sách tài khoản (nhân viên) với 5 tham số
+        List<TaiKhoan> listStaff  = taiKhoanService.getStaffList(); 
+
+        try {
+            if ("export_excel".equals(action)) {
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=DanhSach_NhanVien.xlsx");
+                EmployeeReportGenerator.exportExcel(listStaff , response.getOutputStream());
+                return; 
+            } else if ("export_pdf".equals(action)) {
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "attachment; filename=DanhSach_NhanVien.pdf");
+
+                String fontPath = getServletContext().getRealPath("/assets/fonts/dashboard_fonts/Arial.ttf");
+                EmployeeReportGenerator.exportPdf(listStaff , response.getOutputStream(), fontPath);
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("msg", "error_export");
+        }
+
+        request.setAttribute("listStaff", listStaff );
         request.getRequestDispatcher("/WEB-INF/views/admin/staff-list.jsp").forward(request, response);
     }
 

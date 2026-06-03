@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="icon" type="image/png"
 	href="${pageContext.request.contextPath}/assets/images/dashboard_img/favicon.png">
-<title>Trang Chủ Quản Trị - Khách Sạn A25</title>
+<title>Trang Chủ Quản Trị</title>
 
 <link rel="stylesheet" type="text/css"
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -143,14 +143,32 @@
 							<div
 								class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1">
 								<div class="chart">
-									<canvas id="chart-bar-revenue" class="chart-canvas"
-										height="300"></canvas>
+    								<canvas id="chart-bar-revenue" 
+            							data-labels='${labelsChart}' 
+            							data-data='${dataChart}' 
+            							class="chart-canvas" 
+            							height="170">
+    								</canvas>
 								</div>
 							</div>
 						</div>
 						<div class="card-body">
-							<h6 class="mb-0 ">Biểu đồ Doanh Thu Khái Quát</h6>
-							<p class="text-sm ">Doanh thu trong 7 ngày gần nhất</p>
+    						<div class="d-flex justify-content-between align-items-center mb-0 flex-wrap">
+        						<div>
+            						<h6 class="mb-0 ">Biểu đồ Doanh Thu Hệ Thống</h6>
+            						<p class="text-sm ">Thống kê dựa trên đơn đã xác nhận/hoàn thành</p>
+        						</div>
+        
+        						<form action="${pageContext.request.contextPath}/admin/dashboard" method="GET" class="d-flex align-items-center mt-2 mt-md-0">
+            						<input type="date" name="fromDate" value="${fromDate}" class="form-control border px-2 py-1 mx-1 text-sm" style="width: 130px;" title="Từ ngày">
+            						<span class="mx-1">-</span>
+            						<input type="date" name="toDate" value="${toDate}" class="form-control border px-2 py-1 mx-1 text-sm" style="width: 130px;" title="Đến ngày">
+            
+            						<button type="submit" class="btn btn-sm btn-info mb-0 mx-1 shadow-none">Lọc</button>
+            						<button type="submit" name="action" value="export_excel" class="btn btn-sm btn-success mb-0 mx-1 shadow-none">Xuất Excel</button>
+            						<button type="submit" name="action" value="export_pdf" class="btn btn-sm btn-danger mb-0 ms-1 shadow-none">Xuất PDF</button>
+        						</form>
+    						</div>
 						</div>
 					</div>
 				</div>
@@ -169,85 +187,9 @@
 		src="${pageContext.request.contextPath}/assets/js/dashboard_js/plugins/smooth-scrollbar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/assets/js/dashboard_js/material-dashboard.min.js?v=3.0.0"></script>
+	<script 
+		src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script 
+		src="${pageContext.request.contextPath}/assets/js/dashboard-chart.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<!--  DashBoard Doanh Thu 7 Ngày gần nhất -->
-  <script>
-    // Nhận trực tiếp chuỗi mảng từ Java Controller đẩy sang
-    var chuoiLabels = ${labelsChart}; 
-    var chuoiData = ${dataChart};
-
-    var ctx = document.getElementById("chart-bar-revenue").getContext("2d");
-
-    new Chart(ctx, {
-      type: "bar", // Chuyển đổi thành biểu đồ cột
-      data: {
-        labels: chuoiLabels,
-        datasets: [{
-          label: "Doanh thu (VNĐ)",
-          tension: 0.4,
-          borderWidth: 0,
-          borderRadius: 4,
-          borderSkipped: false,
-          backgroundColor: "rgba(255, 255, 255, .8)", // Cột màu trắng trong suốt mờ trên nền xanh lá
-          data: chuoiData,
-          maxBarThickness: 35
-        }],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          }
-        },
-        scales: {
-          y: {
-            grid: {
-              drawBorder: false,
-              display: true,
-              drawOnChartArea: true,
-              drawTicks: false,
-              borderDash: [5, 5],
-              color: 'rgba(255, 255, 255, .2)'
-            },
-            ticks: {
-              suggestedMin: 0,
-              beginAtZero: true,
-              padding: 10,
-              font: {
-                size: 12,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-              color: "#fff"
-            },
-          },
-          x: {
-            grid: {
-              drawBorder: false,
-              display: false,
-              drawOnChartArea: false,
-              drawTicks: false
-            },
-            ticks: {
-              display: true,
-              color: '#f8f9fa',
-              padding: 10,
-              font: {
-                size: 12,
-                weight: 300,
-                family: "Roboto",
-                style: 'normal',
-                lineHeight: 2
-              },
-            }
-          },
-        },
-      },
-    });
-  </script>
 </html>

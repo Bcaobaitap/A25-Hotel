@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="icon" type="image/png"
 	href="${pageContext.request.contextPath}/assets/images/dashboard_img/favicon.png">
-<title>Quản Lý Đơn Đặt Phòng - Lễ Tân</title>
+<title>Quản Lý Đơn Đặt Phòng</title>
 
 <link rel="stylesheet" type="text/css"
 	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -56,13 +56,31 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="card my-4">
-						<div
-							class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-							<div
-								class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-								<h6 class="text-white text-capitalize ps-3">Danh Sách Đơn
-									Đặt Phòng</h6>
-							</div>
+						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+    						<div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3 px-3 d-flex justify-content-between align-items-center flex-wrap">
+        						<h6 class="text-white text-capitalize mb-0">Danh Sách Đơn Đặt Phòng</h6>
+        
+        						<form action="${pageContext.request.contextPath}/receptionist/manage-booking" method="GET" class="d-flex align-items-center flex-wrap mt-2 mt-md-0">
+            						<div class="d-flex align-items-center bg-white border-radius-md px-2 py-1 me-3">
+                						<label class="text-xs font-weight-bold mb-0 me-2 text-dark">Từ ngày:</label>
+                						<input type="date" name="fromDate" id="fromDate" value="${fromDate}" class="form-control border-0 p-0 text-sm text-dark" style="width: 125px;">
+                						<label class="text-xs font-weight-bold mb-0 mx-2 text-dark">Đến:</label>
+                						<input type="date" name="toDate" id="toDate" value="${toDate}" class="form-control border-0 p-0 text-sm text-dark" style="width: 125px;">
+            						</div>
+            
+            						<button type="submit" class="btn btn-sm btn-info mb-0 me-2 shadow-none d-flex align-items-center">
+                						<i class="material-icons text-sm me-1">filter_alt</i> Lọc
+            						</button>
+            
+            						<button type="submit" name="action" value="export_excel" class="btn btn-sm btn-success mb-0 me-2 shadow-none d-flex align-items-center">
+                						<i class="material-icons text-sm me-1">table_view</i> Xuất Excel
+            						</button>
+            
+            						<button type="submit" name="action" value="export_pdf" class="btn btn-sm btn-danger mb-0 shadow-none d-flex align-items-center">
+                						<i class="material-icons text-sm me-1">picture_as_pdf</i> Xuất PDF
+            						</button>
+        						</form>
+    						</div>
 						</div>
 						<div class="card-body px-0 pb-2">
 							<div class="table-responsive p-0">
@@ -217,5 +235,7 @@
 		src="${pageContext.request.contextPath}/assets/js/dashboard_js/plugins/smooth-scrollbar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/assets/js/dashboard_js/material-dashboard.min.js?v=3.0.0"></script>
+	<script 
+		src="${pageContext.request.contextPath}/assets/js/booking-filter.js"></script>
 </body>
 </html>
