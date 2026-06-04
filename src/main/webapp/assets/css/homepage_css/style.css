@@ -6,6 +6,31 @@ body {
   overflow-x: hidden;
 }
 
+/* Cắt chữ nếu vượt quá 1 dòng (Thường dùng cho Tiêu đề) */
+.text-truncate-1 {
+    white-space: nowrap;        /* Ép văn bản không được xuống dòng */
+    overflow: hidden;           /* Giấu phần nội dung bị tràn ra ngoài khung */
+    text-overflow: ellipsis;    /* Tự động thêm dấu ... vào cuối phần bị giấu */
+}
+
+/* Cắt chữ nếu vượt quá 2 dòng (Thường dùng cho Mô tả, Thông tin liên hệ) */
+.text-truncate-2 {
+    display: -webkit-box;               /* Sử dụng mô hình hộp linh hoạt của WebKit */
+    -webkit-line-clamp: 2;              /* Giới hạn số dòng tối đa là 2 */
+    -webkit-box-orient: vertical;       /* Sắp xếp nội dung theo chiều dọc */
+    overflow: hidden;                   /* Giấu phần tràn ra ngoài */
+    text-overflow: ellipsis;
+}
+
+/* Cắt chữ nếu vượt quá 3 dòng (Thường dùng cho Mô tả chi tiết phòng) */
+.text-truncate-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .layout_padding {
   padding: 90px 0;
 }

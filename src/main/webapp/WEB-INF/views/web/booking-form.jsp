@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" scope="page" />
 
 <!DOCTYPE html>
 <html>
@@ -74,7 +76,7 @@
             <img src="${pageContext.request.contextPath}/assets/images/homepage_img/${room.anhPhong}" style="width: 100%; border-radius: 5px; margin-bottom: 15px;">
             <p style="color: black;"><strong>Phòng:</strong> ${room.tenPhong}</p>
             <p style="color: black;"><strong>Loại:</strong> ${room.loaiPhong}</p>
-            <p style="color: black;"><strong>Giá niêm yết:</strong> <span style="color: #ffbe33;">${room.gia} VNĐ/đêm</span></p>
+            <p style="color: black;"><strong>Giá niêm yết:</strong> <span style="color: #ffbe33;"><fmt:formatNumber value="${room.gia}" type="number" /> VNĐ/đêm</span></p>
           </div>
         </div>
       </div>
@@ -83,17 +85,7 @@
 
   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
   
-  <script src="${pageContext.request.contextPath}/assets/js/validator.js"></script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Validation cũ
-        Validator.applyValidation('phoneInputBooking', 'phone', 'Số điện thoại không hợp lệ');
-        
-        // GỌI HÀM VALIDATION NGÀY THÁNG MỚI CHỈ VỚI 1 DÒNG
-        Validator.applyDateValidation('ngayNhan', 'ngayTra');
-    });
-</script>
+<script src="${pageContext.request.contextPath}/assets/js/validator.js?v=<%= System.currentTimeMillis() %>"></script>
 
 </body>
 </html>

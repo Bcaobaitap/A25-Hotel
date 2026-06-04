@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" scope="page" />
 
 <!DOCTYPE html>
 <html>
@@ -72,13 +74,22 @@
                     <img src="${pageContext.request.contextPath}/assets/images/homepage_img/${phong.anhPhong}" alt="${phong.tenPhong}">
                   </div>
                   <div class="detail-box">
-                    <h5>${phong.tenPhong}</h5>
-                    <p>
-                      Loại: <span style="font-weight: bold; color: #ffbe33;">${phong.loaiPhong}</span><br/>
-                      ${phong.moTa}
-                    </p>
+					<h5 class="text-truncate-1" title="${phong.tenPhong}">
+						${phong.tenPhong}
+					</h5>
+										
+					<div style="margin-bottom: 8px; font-size: 15px;">
+						Loại: <span style="font-weight: bold; color: #ffbe33;">${phong.loaiPhong}</span>
+					</div>
+										
+					<p class="text-truncate-3" style="line-height: 1.5; min-height: 4.5em; margin-bottom: 15px; color: white;">
+						${phong.moTa}
+					</p>
+					
                     <div class="options">
-                      <h6>${phong.gia} VNĐ</h6>
+                      <h6> 
+						<fmt:formatNumber value="${phong.gia}" type="number" /> VNĐ
+                      </h6>
                       <a href="${pageContext.request.contextPath}/room-detail?id=${phong.maPhong}" title="Xem chi tiết & Đặt phòng">
                         <i class="fa fa-bed" aria-hidden="true" style="color: white; font-size: 18px;"></i>
                       </a>

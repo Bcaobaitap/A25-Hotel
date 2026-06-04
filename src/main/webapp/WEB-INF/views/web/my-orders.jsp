@@ -101,10 +101,15 @@
                 								<form action="${pageContext.request.contextPath}/cancel-order" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn đặt phòng này không?');">
                     								<input type="hidden" name="maDon" value="${don.maDon}">
                     								<button type="submit" class="btn btn-sm btn-outline-danger" style="border-radius: 20px; font-weight: bold;">
-                        								<i class="fa fa-times-circle" aria-hidden="true"></i> Hủy đơn
+                        								Hủy đơn
                     								</button>
                 								</form>
             								</c:if>
+            								
+            								<a href="${pageContext.request.contextPath}/order-detail?maDon=${don.maDon}" 
+       											class="btn btn-sm btn-outline-info" 
+       											style="border-radius: 20px; font-weight: bold; margin-bottom: 5px;"> Chi tiết
+    										</a>
         								</td>
                                     </tr>
                                 </c:forEach>

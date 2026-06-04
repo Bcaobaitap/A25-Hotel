@@ -1,68 +1,92 @@
 const Validator = {
-    // Biểu thức Regex tương đồng với Java Server
-    isEmail: function(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email.trim());
-    },
-    
     isPhone: function(phone) {
-        const re = /^(0)[0-9]{9}$/;
-        return re.test(phone.trim());
+        return /^(0)[0-9]{9}$/.test(phone.trim());
     },
 
-    // Hàm gắn sự kiện kiểm tra trực tiếp vào thẻ input
-    applyValidation: function(inputId, type, errorMessage) {
-        const inputElement = document.getElementById(inputId);
-		if (!inputElement) return;
-		
-        const errorElement = document.createElement('span');
+    init: function() {
+        console.log("Khởi động hệ thống Validate..."); // Dòng này để bạn ấn F12 kiểm tra xem JS đã chạy chưa
+
+        const phoneInput = document.getElementById('phoneInputBooking');
+        const fromDateInput = document.getElementById('ngayNhan');
+        const toDateInput = document.getElementById('ngayTra');
         
-        // Setup CSS cho thông báo lỗi
+        // Tìm form đang chứa input số điện thoại
+        const form = phoneInput ? phoneInput.closest('form') : null;
+
+        if (!phoneInput || !fromDateInput || !toDateInput || !form) {
+            return; // Nếu không tìm thấy thẻ, dừng lại để không báo lỗi linh tinh
+        }
+
+        // ==================================================
+        // 1. LOGIC SỐ ĐIỆN THOẠI (Giữ nguyên code gốc của bạn)
+        // ==================================================
+        const errorElement = document.createElement('span');
         errorElement.style.color = 'red';
         errorElement.style.fontSize = '12px';
         errorElement.style.display = 'none';
-        errorElement.innerText = errorMessage;
-        inputElement.parentNode.insertBefore(errorElement, inputElement.nextSibling);
+        errorElement.innerText = 'Số điện thoại không hợp lệ';
+        phoneInput.parentNode.insertBefore(errorElement, phoneInput.nextSibling);
 
-        // Bắt sự kiện khi người dùng gõ phím hoặc rời khỏi ô nhập
-        inputElement.addEventListener('input', function() {
-            let isValid = false;
-            if (type === 'email') isValid = Validator.isEmail(this.value);
-            if (type === 'phone') isValid = Validator.isPhone(this.value);
-            
+        phoneInput.addEventListener('input', function() {
+            let isValid = Validator.isPhone(this.value);
             if (!isValid && this.value.length > 0) {
-                inputElement.style.border = '1px solid red';
+                this.style.border = '1px solid red';
                 errorElement.style.display = 'block';
             } else {
-                inputElement.style.border = '1px solid #ccc';
+                this.style.border = '1px solid #ccc';
                 errorElement.style.display = 'none';
             }
         });
-    },
-	
-	// Hàm ràng buộc logic Ngày nhận và Ngày trả
-	    applyDateValidation: function(fromDateId, toDateId) {
-	        const fromDateInput = document.getElementById(fromDateId);
-	        const toDateInput = document.getElementById(toDateId);
 
-	        // Đảm bảo cả 2 thẻ input đều tồn tại trên trang
-	        if (!fromDateInput || !toDateInput) return;
+        // ==================================================
+        // 2. LOGIC LỊCH (Giữ nguyên code gốc của bạn)
+        // ==================================================
+        const today = new Date().toISOString().split('T')[0];
+        fromDateInput.setAttribute('min', today);
 
-	        // Tùy chọn: Không cho phép chọn ngày trong quá khứ
-	        const today = new Date().toISOString().split('T')[0];
-	        fromDateInput.setAttribute('min', today);
+        fromDateInput.addEventListener('change', function() {
+            const selectedFromDate = this.value;
+            toDateInput.setAttribute('min', selectedFromDate);
+            
+            // Tự động reset nếu khách đã lỡ chọn sai
+            if (toDateInput.value && toDateInput.value < selectedFromDate) {
+                toDateInput.value = selectedFromDate;
+            }
+        });
 
-	        // Bắt sự kiện khi Ngày nhận thay đổi
-	        fromDateInput.addEventListener('change', function() {
-	            const selectedFromDate = this.value;
-	            
-	            // Ép Ngày trả không được nhỏ hơn Ngày nhận
-	            toDateInput.setAttribute('min', selectedFromDate);
-	            
-	            // Nếu khách đã lỡ chọn Ngày trả sai trước đó, tự động reset
-	            if (toDateInput.value && toDateInput.value < selectedFromDate) {
-	                toDateInput.value = selectedFromDate;
-	            }
-	        });
-	    }
+        // ==================================================
+        // 3. CHỐT CHẶN BẢO VỆ (Ngăn submit trắng trang)
+        // ==================================================
+        form.addEventListener('submit', function(e) {
+            let isPhoneValid = Validator.isPhone(phoneInput.value);
+            let isDateValid = true;
+
+            // Kiểm tra lại ngày trước khi gửi
+            if (fromDateInput.value && toDateInput.value) {
+                if (toDateInput.value < fromDateInput.value) {
+                    isDateValid = false;
+                }
+            }
+
+            if (!isPhoneValid) {
+                e.preventDefault(); // Lệnh này giúp chặn việc gửi dữ liệu lên Server
+                alert('Vui lòng nhập đúng định dạng số điện thoại!');
+                phoneInput.focus(); // Tự động trỏ chuột vào ô bị sai
+            } else if (!isDateValid) {
+                e.preventDefault();
+                alert('Lỗi: Ngày trả phòng không được nhỏ hơn ngày nhận phòng!');
+            }
+        });
+    }
 };
+
+// ==================================================
+// HỆ THỐNG KÍCH HOẠT THÔNG MINH
+// ==================================================
+// Nếu trình duyệt đang load dở HTML thì đợi Load xong. 
+// Nếu đã load xong rồi thì chạy luôn. Cách này loại bỏ hoàn toàn lỗi "chạy nhầm thời điểm".
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', Validator.init);
+} else {
+    Validator.init();
+}

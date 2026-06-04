@@ -12,6 +12,10 @@ public class DonDatService {
         this.donDatDAO = mockDAO;
     }
     
+    public DonDatPhong getBookingDetail(int maDon, int maKH) {
+        return donDatDAO.getByIdAndMaKH(maDon, maKH);
+    }
+    
     public boolean createBooking(DonDatPhong don, double giaPhong) {
     	if (!donDatDAO.isRoomAvailable(don.getMaPhong(), don.getNgayNhan(), don.getNgayTra())) {
             return false; 

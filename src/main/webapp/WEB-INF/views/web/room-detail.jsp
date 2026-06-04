@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" scope="page" />
 
 <!DOCTYPE html>
 <html>
@@ -40,7 +42,7 @@
             
             <div style="margin: 20px 0; font-size: 18px; color: #f1f2f3;">
               <p><strong>Loại phòng:</strong> <span style="color: #ffbe33;">${room.loaiPhong}</span></p>
-              <p><strong>Giá thuê:</strong> <span style="color: #ffbe33; font-size: 24px;">${room.gia} VNĐ</span> / đêm</p>
+              <p><strong>Giá thuê:</strong> <span style="color: #ffbe33; font-size: 24px;"><fmt:formatNumber value="${room.gia}" type="number" /> VNĐ</span> / đêm</p>
               <p><strong>Diện tích:</strong> ${room.dienTich} m²</p>
               <p><strong>Vị trí:</strong> Tầng ${room.soTang}</p>
               <p><strong>Tiện ích:</strong> 
