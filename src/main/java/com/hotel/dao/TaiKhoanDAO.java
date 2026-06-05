@@ -114,4 +114,30 @@ public class TaiKhoanDAO {
         }
         return false;
     }
+    
+    public boolean updateInfo(int maTK, String tenDN, String matKhau) {
+        String sql = "UPDATE TAIKHOAN SET TenDN = ?, MatKhau = ? WHERE MaTK = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, tenDN);
+            ps.setString(2, matKhau);
+            ps.setInt(3, maTK);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean delete(int maTK) {
+        String sql = "DELETE FROM TAIKHOAN WHERE MaTK = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, maTK);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

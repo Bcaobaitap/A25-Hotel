@@ -68,12 +68,35 @@ public class ManageStaffController extends HttpServlet {
                 }
             } 
             else if ("updateRole".equals(action)) {
-                int maTK = Integer.parseInt(request.getParameter("maTK"));
+            	int maTK = Integer.parseInt(request.getParameter("maTK"));
                 String newRole = request.getParameter("newRole");
+
+                boolean success = false;
+                // Bắt điều kiện: Nếu chọn "LOCKED" (Khoá TK) thì lập tức kích hoạt luồng xóa DB
+                if ("LOCKED".equals(newRole)) {
+                    success = taiKhoanService.deleteStaff(maTK);
+                } else {
+                    success = taiKhoanService.changeStaffRole(maTK, newRole);
+                }
                 
-                boolean success = taiKhoanService.changeStaffRole(maTK, newRole);
                 if (success) {
-                    response.sendRedirect(request.getContextPath() + "/admin/staff?msg=update_success");
+                    String msg = "LOCKED".equals(newRole) ? "delete_success" : "update_success";
+                    response.sendRedirect(request.getContextPath() + "/admin/staff?msg=" + msg);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/admin/staff?msg=error");
+                }
+            }
+         // Xử lý request từ nút Sửa thông tin
+            else if ("updateInfo".equals(action)) {
+                int maTK = Integer.parseInt(request.getParameter("maTK"));
+                String hoTen = request.getParameter("hoTen");
+                String tenDN = request.getParameter("tenDN");
+                String matKhau = request.getParameter("matKhau");
+
+                boolean success = taiKhoanService.updateStaffInfo(maTK, hoTen, tenDN, matKhau);
+                
+                if (success) {
+                    response.sendRedirect(request.getContextPath() + "/admin/staff?msg=update_info_success");
                 } else {
                     response.sendRedirect(request.getContextPath() + "/admin/staff?msg=error");
                 }

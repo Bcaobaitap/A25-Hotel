@@ -43,4 +43,29 @@ public class NhanVienDAO {
         }
         return false;
     }
+    
+    public boolean updateHoTen(int maTK, String hoTen) {
+        String sql = "UPDATE NHANVIEN SET HoTen = ? WHERE MaTK = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, hoTen);
+            ps.setInt(2, maTK);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteByMaTK(int maTK) {
+        String sql = "DELETE FROM NHANVIEN WHERE MaTK = ?";
+        try (Connection conn = DBContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, maTK);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

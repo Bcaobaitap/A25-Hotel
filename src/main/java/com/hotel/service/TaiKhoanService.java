@@ -94,4 +94,22 @@ public class TaiKhoanService {
     public boolean changeStaffRole(int maTK, String newRole) {
         return taiKhoanDAO.updateRole(maTK, newRole);
     }
+    
+ // Nghiệp vụ Cập nhật thông tin
+    public boolean updateStaffInfo(int maTK, String hoTen, String tenDN, String matKhau) {
+        // 1. Cập nhật bảng TAIKHOAN
+        boolean isTkUpdated = taiKhoanDAO.updateInfo(maTK, tenDN, matKhau);
+        // 2. Cập nhật bảng NHANVIEN
+        boolean isNvUpdated = nhanVienDAO.updateHoTen(maTK, hoTen);
+        
+        return isTkUpdated && isNvUpdated;
+    }
+    
+ // Nghiệp vụ Xóa (Delete)
+    public boolean deleteStaff(int maTK) {
+        // Lưu ý tính toàn vẹn dữ liệu: Phải xóa từ bảng phụ (NHANVIEN) trước
+        nhanVienDAO.deleteByMaTK(maTK);
+        // Sau đó mới được xóa bảng chính (TAIKHOAN)
+        return taiKhoanDAO.delete(maTK);
+    }
 }
