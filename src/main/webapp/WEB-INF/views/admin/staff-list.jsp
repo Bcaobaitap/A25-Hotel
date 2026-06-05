@@ -34,6 +34,12 @@
       <c:if test="${param.msg == 'update_success'}">
           <div class="alert alert-info text-white">Cập nhật quyền nhân sự thành công!</div>
       </c:if>
+      <c:if test="${param.msg == 'delete_success'}">
+      	<div class="alert alert-warning text-white">Đã xóa vĩnh viễn tài khoản nhân sự khỏi Database!</div>
+      </c:if>
+      <c:if test="${param.msg == 'update_info_success'}">
+      	<div class="alert alert-success text-white">Đã cập nhật thông tin nhân sự thành công!</div>
+      </c:if>
       <c:if test="${param.msg == 'error'}">
           <div class="alert alert-danger text-white">Có lỗi xảy ra. Tên đăng nhập có thể đã tồn tại.</div>
       </c:if>
@@ -73,6 +79,7 @@
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Họ Tên</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên Đăng Nhập</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mật Khẩu</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quyền (Role)</th>
                       <th class="text-secondary opacity-7"></th>
                     </tr>
@@ -97,24 +104,64 @@
                           <td>
                             <p class="text-xs font-weight-bold mb-0">${staff.tenDN}</p>
                           </td>
+                          <td>
+                          	<p class="text-xs font-weight-bold mb-0">${staff.matKhau}</p>
+                          </td>
                           <td class="align-middle text-center text-sm">
                             <span class="badge badge-sm ${staff.loaiTaiKhoan == 'ADMIN' ? 'bg-gradient-danger' : 'bg-gradient-success'}">
                                 ${staff.loaiTaiKhoan}
                             </span>
                           </td>
                           <td class="align-middle">
-                            <!-- Form đổi quyền trực tiếp -->
-                            <form action="${pageContext.request.contextPath}/admin/staff" method="POST" class="d-flex align-items-center">
-                                <input type="hidden" name="action" value="updateRole">
-                                <input type="hidden" name="maTK" value="${staff.maTK}">
-                                <select name="newRole" class="form-select form-select-sm px-2 py-1 border border-secondary rounded me-2" style="width: auto;">
-                                    <option value="RECEPTIONIST" ${staff.loaiTaiKhoan == 'RECEPTIONIST' ? 'selected' : ''}>Lễ Tân</option>
-                                    <option value="ADMIN" ${staff.loaiTaiKhoan == 'ADMIN' ? 'selected' : ''}>Admin</option>
-                                    <option value="LOCKED">Khóa TK</option>
-                                </select>
-                                <button type="submit" class="btn btn-sm btn-outline-info mb-0 py-1 px-2" title="Cập nhật quyền">Lưu</button>
-                            </form>
-                          </td>
+    						<form action="${pageContext.request.contextPath}/admin/staff" method="POST" class="d-flex align-items-center mb-0" onsubmit="return confirmRoleChange(this);">
+        						<input type="hidden" name="action" value="updateRole">
+        						<input type="hidden" name="maTK" value="${staff.maTK}">
+        						<select name="newRole" class="form-select form-select-sm px-2 py-1 border border-secondary rounded me-2" style="width: auto;">
+            						<option value="RECEPTIONIST" ${staff.loaiTaiKhoan == 'RECEPTIONIST' ? 'selected' : ''}>Lễ Tân</option>
+            						<option value="ADMIN" ${staff.loaiTaiKhoan == 'ADMIN' ? 'selected' : ''}>Admin</option>
+            						<option value="LOCKED">Khóa TK (Xóa)</option>
+        						</select>
+        						<button type="submit" class="btn btn-sm btn-outline-info mb-0 py-1 px-2" title="Cập nhật quyền">Lưu</button>
+        
+        						<button type="button" class="btn btn-sm btn-outline-warning mb-0 py-1 px-2 ms-2" data-bs-toggle="modal" data-bs-target="#editStaffModal${staff.maTK}" title="Sửa thông tin">Sửa</button>
+    						</form>
+
+    						<div class="modal fade" id="editStaffModal${staff.maTK}" tabindex="-1" role="dialog" aria-hidden="true">
+        						<div class="modal-dialog modal-dialog-centered" role="document">
+            						<div class="modal-content text-start">
+                						<div class="modal-header bg-gradient-warning">
+                    						<h5 class="modal-title text-white">Sửa Thông Tin: ${staff.hoTen}</h5>
+                    						<button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close">
+                        						<span aria-hidden="true"></span>
+                    						</button>
+                						</div>
+                						<form action="${pageContext.request.contextPath}/admin/staff" method="POST">
+                    						<div class="modal-body">
+                        						<input type="hidden" name="action" value="updateInfo">
+                        						<input type="hidden" name="maTK" value="${staff.maTK}">
+                        
+                        						<div class="input-group input-group-static mb-3">
+                            						<label>Họ và Tên</label>
+                            						<input type="text" name="hoTen" class="form-control" value="${staff.hoTen}" required>
+                        						</div>
+                        						<div class="input-group input-group-static mb-3">
+                            						<label>Tên đăng nhập</label>
+                            						<input type="text" name="tenDN" class="form-control" value="${staff.tenDN}" required>
+                        						</div>
+                        						<div class="input-group input-group-static mb-3">
+                            						<label>Mật khẩu</label>
+                            						<input type="text" name="matKhau" class="form-control" value="${staff.matKhau}" required>
+                        						</div>
+                    						</div>
+                    						<div class="modal-footer">
+                        						<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button>
+                        						<button type="submit" class="btn bg-gradient-warning">Cập Nhật</button>
+                    						</div>
+                						</form>
+            						</div>
+        						</div>
+    						</div>
+						</td>
                         </tr>
                     </c:forEach>
                   </tbody>
@@ -180,5 +227,14 @@
   <script src="${pageContext.request.contextPath}/assets/js/dashboard_js/plugins/perfect-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/dashboard_js/plugins/smooth-scrollbar.min.js"></script>
   <script src="${pageContext.request.contextPath}/assets/js/dashboard_js/material-dashboard.min.js?v=3.0.0"></script>
+  <script>
+    function confirmRoleChange(form) {
+        var selectedRole = form.newRole.value;
+        if (selectedRole === 'LOCKED') {
+            return confirm('Hành động này sẽ XÓA VĨNH VIỄN nhân sự khỏi cơ sở dữ liệu. Bạn có chắc chắn không?');
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
